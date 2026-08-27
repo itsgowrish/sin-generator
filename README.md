@@ -33,7 +33,8 @@ Download the HTML file and open it in any modern browser:
 
 🔗 sin-generator/index.html at main · itsgowrish/sin-generator
 
- <img width="800" height="420" alt="image" src="https://github.com/user-attachments/assets/b2b97465-c900-4177-b1a1-6054de25e78b" />
+<img width="3791" height="1990" alt="image" src="https://github.com/user-attachments/assets/fd7aea6a-7183-460d-a34b-bd7558275832" />
+
 
 **Quick User Guide**
 
