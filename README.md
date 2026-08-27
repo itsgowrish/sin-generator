@@ -24,7 +24,8 @@ Access the tool directly from your browser:
 
 🔗 SIN Generator | Generate & Validate
 
- <img width="800" height="424" alt="image" src="https://github.com/user-attachments/assets/e7e3a31a-691d-4635-a437-a4a5844b2e6c" />
+<img width="3784" height="2033" alt="image" src="https://github.com/user-attachments/assets/e64e09b8-2a95-44ec-b3fa-fc84dd042fed" />
+
 
 **Option 2:** Run Locally
 
