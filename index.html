@@ -63,17 +63,19 @@
       .primary { min-height: 51px; padding: 0 24px; color: #fff; background: var(--teal); box-shadow: 0 7px 14px rgba(8, 127, 118, .2); }
       .primary:hover { background: var(--teal-dark); box-shadow: 0 10px 18px rgba(8, 127, 118, .25); }
       .batch-button { width: 100%; margin-top: 18px; }
-      .batch-copy-all { width: 100%; min-height: 48px; margin-top: 10px; padding: 13px 18px; color: var(--teal-dark); background: #e2eeea; font-size: 13px; box-shadow: var(--soft-shadow); }
-      .batch-copy-all:hover { background: #d1e5df; }
+      .batch-copy-all { width: 100%; min-height: 48px; margin-top: 10px; padding: 13px 18px; border: 1px solid rgba(221, 104, 79, .42); color: var(--coral); background: #fffdf8; font-size: 13px; box-shadow: 0 3px 8px rgba(30, 56, 54, .07); }
+      .batch-copy-all:hover { color: #fff; background: var(--coral); border-color: var(--coral); }
       .batch-settings { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: end; margin-top: 18px; }
       .batch-settings label { margin-bottom: 0; }
       .batch-settings > div:first-child label { white-space: nowrap; }
       .batch-results { display: grid; grid-template-columns: 1fr; gap: 8px; max-height: 380px; margin-top: 22px; overflow-y: auto; padding-right: 5px; }
       .batch-number { display: flex; align-items: center; justify-content: space-between; gap: 7px; margin: 0; padding: 10px 10px 10px 13px; border: 1px solid var(--line); border-radius: 3px; color: var(--teal-dark); background: rgba(244, 248, 244, .85); font: 16px 'Trebuchet MS', sans-serif; letter-spacing: .04em; box-shadow: 0 2px 5px rgba(30, 56, 54, .04); }
-      .batch-copy { flex: 0 0 auto; min-width: 58px; padding: 8px 10px; border: 1px solid rgba(8, 127, 118, .28); color: var(--teal-dark); background: #fffdf8; font-size: 11px; box-shadow: 0 2px 5px rgba(30, 56, 54, .06); }
-      .batch-copy:hover { color: #fff; background: var(--teal); border-color: var(--teal); }
+      .batch-copy { flex: 0 0 auto; min-width: 72px; padding: 10px 14px; border: 1px solid rgba(221, 104, 79, .42); color: var(--coral); background: #fffdf8; font-size: 13px; box-shadow: 0 3px 8px rgba(30, 56, 54, .07); }
+      .batch-copy:hover { color: #fff; background: var(--coral); border-color: var(--coral); }
       .result { display: flex; justify-content: space-between; align-items: center; gap: 18px; min-height: 125px; padding: 26px 0 5px; border-bottom: 1px solid var(--line); }
       .result-number { margin: 0; font: 400 clamp(34px, 6vw, 55px)/1 'Trebuchet MS', sans-serif; letter-spacing: .08em; color: var(--teal-dark); }
+      .hyphen-toggle { display: flex; align-items: center; gap: 8px; margin: 12px 0 0; color: var(--muted); font: 13px 'Trebuchet MS', sans-serif; letter-spacing: 0; text-transform: none; }
+      .hyphen-toggle input { width: 16px; height: 16px; margin: 0; accent-color: var(--teal); }
       .copy { flex: 0 0 auto; min-width: 72px; padding: 10px 14px; border: 1px solid rgba(221, 104, 79, .42); color: var(--coral); background: #fffdf8; font-size: 13px; box-shadow: 0 3px 8px rgba(30, 56, 54, .07); }
       .copy:hover { color: #fff; background: var(--coral); border-color: var(--coral); }
       .status { min-height: 25px; margin: 17px 0 0; color: var(--muted); font: 16px/1.4 'Trebuchet MS', sans-serif; font-weight: 700; }
@@ -153,6 +155,7 @@
             <p class="result-number" id="generated-sin">--- --- ---</p>
             <button class="copy" id="copy" type="button" aria-label="Copy generated SIN">Copy</button>
           </div>
+          <label class="hyphen-toggle"><input id="show-hyphens" type="checkbox" checked> Show hyphens</label>
           <p class="status" id="generate-status"></p>
           <div class="batch-settings">
             <div>
@@ -180,7 +183,7 @@
           <div class="input-row">
             <div>
               <label for="sin-input">Nine-digit number</label>
-              <input id="sin-input" inputmode="numeric" autocomplete="off" maxlength="11" placeholder="123 456 789" aria-describedby="validation-status">
+              <input id="sin-input" inputmode="numeric" autocomplete="off" maxlength="11" placeholder="123-456-789" aria-describedby="validation-status">
             </div>
           </div>
           <p class="paste-hint">Use Ctrl+V or Cmd+V to paste a SIN.</p>
@@ -248,6 +251,7 @@
       const batchResults = document.querySelector('#batch-results');
       const sinInput = document.querySelector('#sin-input');
       const validationStatus = document.querySelector('#validation-status');
+      const showHyphens = document.querySelector('#show-hyphens');
 
       function checksumSum(digits) {
         return digits.reduce((sum, digit, index) => {
@@ -265,8 +269,9 @@
         return remainder === 0 ? 0 : 10 - remainder;
       }
 
-      function formatSin(sin) {
-        return sin.replace(/\D/g, '').replace(/(\d{3})(?=\d)/g, '$1 ').trim();
+      function formatSin(sin, includeHyphens = showHyphens.checked) {
+        const digits = sin.replace(/\D/g, '');
+        return digits.replace(/(\d{3})(\d{3})(\d{3})/, includeHyphens ? '$1-$2-$3' : '$1 $2 $3');
       }
 
       function copyText(text) {
@@ -320,7 +325,7 @@
         if (!sins.length) return;
         try {
           if (!copyText(sins.map(formatSin).join('\n'))) throw new Error('Copy failed');
-          generateStatus.textContent = `${sins.length} SINs copied to clipboard.`;
+          generateStatus.textContent = 'SIN copied to clipboard.';
           generateStatus.className = 'status success';
         } catch {
           generateStatus.textContent = 'Copy is unavailable in this browser.';
@@ -333,7 +338,7 @@
         if (!button) return;
         try {
           if (!copyText(formatSin(button.dataset.sin))) throw new Error('Copy failed');
-          generateStatus.textContent = `SIN ${button.dataset.sin} copied to clipboard.`;
+          generateStatus.textContent = 'SIN copied to clipboard.';
           generateStatus.className = 'status success';
         } catch {
           generateStatus.textContent = 'Copy is unavailable in this browser.';
@@ -341,8 +346,17 @@
         }
       });
 
+      showHyphens.addEventListener('change', () => {
+        const generatedDigits = generatedSin.textContent.replace(/\D/g, '');
+        if (/^\d{9}$/.test(generatedDigits)) generatedSin.textContent = formatSin(generatedDigits);
+        batchResults.querySelectorAll('.batch-number').forEach((row) => {
+          const copyButton = row.querySelector('.batch-copy');
+          row.querySelector('span').textContent = formatSin(copyButton.dataset.sin);
+        });
+      });
+
       document.querySelector('#copy').addEventListener('click', async () => {
-        const sin = generatedSin.textContent.replace(/\s/g, '');
+        const sin = generatedSin.textContent.replace(/[\s-]/g, '');
         if (!/^\d{9}$/.test(sin)) return;
         try {
           if (!copyText(formatSin(sin))) throw new Error('Copy failed');
@@ -354,8 +368,8 @@
         }
       });
 
-      document.querySelector('#validate').addEventListener('click', () => {
-        const value = sinInput.value.replace(/\s/g, '');
+      function validateSinInput() {
+        const value = sinInput.value.replace(/[\s-]/g, '');
         if (!/^\d{9}$/.test(value)) {
           validationStatus.textContent = 'Enter exactly nine digits.';
           validationStatus.className = 'status error';
@@ -364,10 +378,15 @@
         const valid = isValidSin(value);
         validationStatus.textContent = valid ? 'Valid SIN: Passed' : 'Invalid SIN: Failed';
         validationStatus.className = valid ? 'status success' : 'status error';
-      });
+      }
 
-      sinInput.addEventListener('input', () => {
-        sinInput.value = formatSin(sinInput.value);
+      document.querySelector('#validate').addEventListener('click', validateSinInput);
+
+      sinInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          validateSinInput();
+        }
       });
     </script>
   </body>
