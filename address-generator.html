@@ -1,0 +1,351 @@
+  <!doctype html>
+  <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Generate a fake Canadian mailing address and matching phone number.">
+    <title>Address & Phone Generator | Fake Canadian Data</title>
+    <style>
+      :root {
+        --ink: #17242b;
+        --muted: #657478;
+        --paper: #f1eee7;
+        --panel: rgba(255, 253, 248, .92);
+        --line: #d4dcd7;
+        --teal: #087f76;
+        --teal-dark: #075e59;
+        --coral: #dd684f;
+        --valid: #14734f;
+        --invalid: #b63f37;
+        --shadow: 0 25px 70px rgba(30, 56, 54, .13);
+        --soft-shadow: 0 8px 20px rgba(30, 56, 54, .08);
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        zoom: .90;
+        min-height: 100vh;
+        color: var(--ink);
+        background: var(--paper);
+        font-family: Georgia, 'Times New Roman', serif;
+        overflow-x: hidden;
+        padding-bottom: 82px;
+      }
+      body::before {
+        content: '';
+        position: fixed;
+        z-index: -1;
+        inset: 0;
+        background: radial-gradient(circle at 8% 8%, rgba(221, 104, 79, .22), transparent 22rem),
+              radial-gradient(circle at 90% 84%, rgba(8, 127, 118, .14), transparent 26rem),
+              linear-gradient(120deg, transparent 62%, rgba(8, 127, 118, .07) 62%, rgba(8, 127, 118, .07) 63%, transparent 63%),
+              repeating-linear-gradient(0deg, rgba(23, 36, 43, .018) 0 1px, transparent 1px 5px);
+        pointer-events: none;
+      }
+      .shell { width: min(1080px, calc(100% - 40px)); margin: 0 auto; padding: 64px 0 58px; }
+      header { display: flex; justify-content: space-between; align-items: end; gap: 36px; margin-bottom: 46px; animation: rise-in .65s ease both; }
+      .kicker, label, .eyebrow { font: 700 13px/1.2 'Trebuchet MS', sans-serif; letter-spacing: .14em; text-transform: uppercase; }
+      h1 { max-width: 620px; margin: 0; font-size: clamp(40px, 7vw, 76px); line-height: .94; letter-spacing: -.04em; font-weight: 400; text-wrap: balance; }
+      .intro { max-width: 280px; margin: 0 0 4px; color: var(--muted); font: 14px/1.6 'Trebuchet MS', sans-serif; }
+      .page-nav-link { margin: 10px 0 0; }
+      .page-nav-link a { color: var(--teal-dark); font: 700 13px 'Trebuchet MS', sans-serif; text-decoration: none; border-bottom: 1px solid rgba(8, 127, 118, .4); }
+      .page-nav-link a:hover { color: var(--teal); border-color: var(--teal); }
+      .panel { background: var(--panel); border: 1px solid rgba(212, 220, 215, .95); border-radius: 5px; box-shadow: var(--shadow); backdrop-filter: blur(8px); animation: rise-in .7s .08s ease both; }
+      .address-panel { padding: clamp(28px, 5vw, 56px); }
+      .eyebrow { color: var(--coral); margin: 0 0 24px; }
+      label { display: block; color: var(--muted); margin-bottom: 9px; }
+      select, input { width: 100%; border: 1px solid #bfcac6; border-radius: 3px; background: rgba(255, 255, 255, .8); color: var(--ink); font: 18px Georgia, serif; padding: 14px 13px; outline: none; box-shadow: inset 0 1px 2px rgba(23, 36, 43, .04); }
+      select:focus, input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(8, 127, 118, .14), inset 0 1px 2px rgba(23, 36, 43, .04); }
+      button { border: 0; border-radius: 3px; cursor: pointer; font: 700 12px 'Trebuchet MS', sans-serif; letter-spacing: .08em; text-transform: uppercase; transition: transform .15s ease, background .15s ease, box-shadow .15s ease; }
+      button:hover { transform: translateY(-2px); }
+      button:focus-visible { outline: 3px solid rgba(221, 104, 79, .45); outline-offset: 3px; }
+      .primary { min-height: 51px; padding: 0 24px; color: #fff; background: var(--teal); box-shadow: 0 7px 14px rgba(8, 127, 118, .2); }
+      .primary:hover { background: var(--teal-dark); box-shadow: 0 10px 18px rgba(8, 127, 118, .25); }
+      .batch-button { width: 100%; margin-top: 18px; }
+      .clear-button { width: 100%; margin-top: 10px; padding: 13px 18px; border: 1px solid rgba(198, 103, 103, .42); color: var(--invalid); background: #fff0ed; font-size: 13px; box-shadow: var(--soft-shadow); }
+      .clear-button:hover { color: #fff; background: var(--invalid); border-color: var(--invalid); }
+      .batch-settings { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: end; margin-top: 18px; }
+      .batch-settings label { margin-bottom: 0; }
+      .batch-number { display: flex; align-items: center; justify-content: space-between; gap: 7px; margin: 0; padding: 10px 10px 10px 13px; border: 1px solid var(--line); border-radius: 3px; color: var(--teal-dark); background: rgba(244, 248, 244, .85); font: 16px 'Trebuchet MS', sans-serif; letter-spacing: .04em; box-shadow: 0 2px 5px rgba(30, 56, 54, .04); }
+      .batch-copy { flex: 0 0 auto; min-width: 72px; padding: 10px 14px; border: 1px solid rgba(221, 104, 79, .42); color: var(--coral); background: #fffdf8; font-size: 13px; box-shadow: 0 3px 8px rgba(30, 56, 54, .07); }
+      .batch-copy:hover { color: #fff; background: var(--coral); border-color: var(--coral); }
+      .address-results { display: grid; gap: 8px; margin: 18px 0; }
+      .address-row span { flex: 1; min-width: 0; word-break: break-word; }
+      .address-steps { margin: 18px 0 0; padding-left: 22px; color: var(--ink); font: 14px/1.65 'Trebuchet MS', sans-serif; }
+      .address-steps li + li { margin-top: 7px; }
+      .hyphen-toggle { display: flex; align-items: center; gap: 8px; margin: 12px 0 0; color: var(--muted); font: 13px 'Trebuchet MS', sans-serif; letter-spacing: 0; text-transform: none; }
+      .hyphen-toggle input { width: 16px; height: 16px; margin: 0; accent-color: var(--teal); }
+      .status { min-height: 25px; margin: 17px 0 0; color: var(--muted); font: 16px/1.4 'Trebuchet MS', sans-serif; font-weight: 700; }
+      .status.success { color: var(--valid); }
+      .status.error { color: var(--invalid); }
+      .guide-note { margin: 12px 0 0; color: var(--muted); font: 13px/1.55 'Trebuchet MS', sans-serif; }
+      footer { position: fixed; right: 0; bottom: 0; left: 0; z-index: 5; display: flex; justify-content: space-between; gap: 20px; margin: 0; padding: 18px max(20px, calc((100vw - 1080px) / 2 + 20px)); border-top: 1px solid rgba(212, 220, 215, .95); color: var(--muted); background: rgba(255, 252, 249, .94); font: 11px 'Trebuchet MS', sans-serif; box-shadow: 0 -8px 24px rgba(73, 91, 91, .08); backdrop-filter: blur(10px); }
+      footer span { color: #b4c0c3; font-weight: 400; }
+      footer span:first-child { font-size: 14px; }
+      footer span:last-child { font-size: 14px; }
+      @keyframes rise-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+      @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+      @media (max-width: 720px) {
+        .shell { width: min(100% - 28px, 560px); padding-top: 29px; }
+        header { display: block; margin-bottom: 28px; }
+        .intro { max-width: 360px; margin-top: 20px; }
+        .address-panel { padding: 25px; }
+        .batch-settings { grid-template-columns: 1fr; }
+        .primary { width: 100%; }
+        body { padding-bottom: 96px; }
+        footer { display: block; margin: 0; padding: 16px 14px; line-height: 1.6; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <header>
+        <div>
+          <h1>Address &amp; Phone Generator</h1>
+          <p class="page-nav-link"><a href="./index%20copy.html">&larr; Back to SIN Generator</a></p>
+        </div>
+        <p class="intro">Create a fake Canadian mailing address and a matching local phone number.</p>
+      </header>
+
+      <section class="panel address-panel" aria-labelledby="address-title">
+        <p class="eyebrow">Address &amp; Phone</p>
+        <h2 id="address-title">Choose a province and city</h2>
+        <div class="batch-settings">
+          <div>
+            <label for="address-province">Province</label>
+            <select id="address-province">
+              <option value="AB">Alberta</option>
+              <option value="BC">British Columbia</option>
+              <option value="MB">Manitoba</option>
+              <option value="NB">New Brunswick</option>
+              <option value="NL">Newfoundland and Labrador</option>
+              <option value="NS">Nova Scotia</option>
+              <option value="NT">Northwest Territories</option>
+              <option value="NU">Nunavut</option>
+              <option value="ON" selected>Ontario</option>
+              <option value="PE">Prince Edward Island</option>
+              <option value="QC">Quebec</option>
+              <option value="SK">Saskatchewan</option>
+              <option value="YT">Yukon</option>
+            </select>
+          </div>
+          <div>
+            <label for="address-city">City</label>
+            <select id="address-city"></select>
+          </div>
+        </div>
+        <label class="hyphen-toggle"><input id="address-unit" type="checkbox"> Include unit number</label>
+        <button class="primary batch-button" id="generate-address" type="button">Generate address &amp; phone</button>
+        <div class="address-results">
+          <div class="batch-number address-row">
+            <span id="generated-address">Select a province and city, then generate.</span>
+            <button class="batch-copy" id="copy-address" type="button" aria-label="Copy generated address">Copy</button>
+          </div>
+          <div class="batch-number address-row">
+            <span id="generated-phone">(---) --- ----</span>
+            <button class="batch-copy" id="copy-phone" type="button" aria-label="Copy generated phone number">Copy</button>
+          </div>
+        </div>
+        <p class="status" id="address-status"></p>
+        <button class="clear-button" id="clear-address" type="button">Clear address &amp; phone</button>
+        <ol class="address-steps">
+          <li>Select a <strong>Province</strong>, defaulting to <strong>Ontario</strong>.</li>
+          <li>Select a <strong>City</strong>, defaulting to <strong>Toronto</strong>.</li>
+          <li>Optionally check <strong>Include unit number</strong>.</li>
+          <li>Click <strong>Generate address &amp; phone</strong>, then <strong>Copy</strong> the result you need.</li>
+        </ol>
+        <p class="guide-note">Phone numbers use the North American fictional range 555-0100–555-0199, reserved for testing and never assigned to real subscribers.</p>
+      </section>
+
+      <footer><span>Author: Gowrisankar Chandrasekaran</span><span>Local-only tool · No numbers are stored or transmitted</span></footer>
+    </main>
+
+    <script>
+      'use strict';
+      const addressProvince = document.querySelector('#address-province');
+      const addressCity = document.querySelector('#address-city');
+      const addressUnit = document.querySelector('#address-unit');
+      const generatedAddress = document.querySelector('#generated-address');
+      const generatedPhone = document.querySelector('#generated-phone');
+      const addressStatus = document.querySelector('#address-status');
+      const clearAddressButton = document.querySelector('#clear-address');
+
+      const POSTAL_LETTERS = 'ABCEGHJKLMNPRSTVWXYZ';
+      const STREET_NAMES = ['Maple', 'Oak', 'Cedar', 'Birch', 'Elm', 'King', 'Queen', 'Victoria', 'Bay', 'Yonge', 'Bloor', 'College', 'Church', 'Front', 'Main', 'Pine', 'Willow', 'Spruce', 'River', 'Lake'];
+      const STREET_TYPES = ['Street', 'Avenue', 'Road', 'Boulevard', 'Drive', 'Crescent', 'Court', 'Way', 'Lane', 'Trail'];
+
+      // Ontario/Toronto stay first so they remain the default selection.
+      const PROVINCE_DATA = {
+        ON: { name: 'Ontario', defaultCity: 'Toronto', cities: {
+          Toronto: { postalPrefixes: ['M'], areaCodes: ['416', '647', '437'] },
+          Ottawa: { postalPrefixes: ['K'], areaCodes: ['613', '343'] },
+          Mississauga: { postalPrefixes: ['L'], areaCodes: ['905', '289', '365'] },
+          Hamilton: { postalPrefixes: ['L'], areaCodes: ['905', '289'] },
+          London: { postalPrefixes: ['N'], areaCodes: ['519', '226', '548'] },
+          Brampton: { postalPrefixes: ['L'], areaCodes: ['905', '289', '365'] },
+          Markham: { postalPrefixes: ['L'], areaCodes: ['905', '289', '365'] },
+          Vaughan: { postalPrefixes: ['L'], areaCodes: ['905', '289', '365'] },
+          'Richmond Hill': { postalPrefixes: ['L'], areaCodes: ['905', '289', '365'] },
+          Oakville: { postalPrefixes: ['L'], areaCodes: ['905', '289', '365'] },
+          Burlington: { postalPrefixes: ['L'], areaCodes: ['905', '289', '365'] },
+          Oshawa: { postalPrefixes: ['L'], areaCodes: ['905', '289', '365'] },
+          Whitby: { postalPrefixes: ['L'], areaCodes: ['905', '289', '365'] },
+          Ajax: { postalPrefixes: ['L'], areaCodes: ['905', '289', '365'] },
+          Pickering: { postalPrefixes: ['L'], areaCodes: ['905', '289', '365'] },
+          Milton: { postalPrefixes: ['L'], areaCodes: ['905', '289', '365'] },
+          Newmarket: { postalPrefixes: ['L'], areaCodes: ['905', '289', '365'] },
+          Aurora: { postalPrefixes: ['L'], areaCodes: ['905', '289', '365'] },
+          'St. Catharines': { postalPrefixes: ['L'], areaCodes: ['905', '289', '365'] },
+          'Niagara Falls': { postalPrefixes: ['L'], areaCodes: ['905', '289', '365'] },
+          Barrie: { postalPrefixes: ['L'], areaCodes: ['705', '249', '683'] },
+          Windsor: { postalPrefixes: ['N'], areaCodes: ['519', '226', '548'] },
+          Kitchener: { postalPrefixes: ['N'], areaCodes: ['519', '226', '548'] },
+          Waterloo: { postalPrefixes: ['N'], areaCodes: ['519', '226', '548'] },
+          Cambridge: { postalPrefixes: ['N'], areaCodes: ['519', '226', '548'] },
+          Guelph: { postalPrefixes: ['N'], areaCodes: ['519', '226', '548'] },
+          Brantford: { postalPrefixes: ['N'], areaCodes: ['519', '226', '548'] },
+          Sarnia: { postalPrefixes: ['N'], areaCodes: ['519', '226', '548'] },
+          Stratford: { postalPrefixes: ['N'], areaCodes: ['519', '226', '548'] },
+          Woodstock: { postalPrefixes: ['N'], areaCodes: ['519', '226', '548'] },
+          'Chatham-Kent': { postalPrefixes: ['N'], areaCodes: ['519', '226', '548'] },
+          Kingston: { postalPrefixes: ['K'], areaCodes: ['613', '343'] },
+          Belleville: { postalPrefixes: ['K'], areaCodes: ['613', '343'] },
+          Cornwall: { postalPrefixes: ['K'], areaCodes: ['613', '343'] },
+          Peterborough: { postalPrefixes: ['K'], areaCodes: ['705', '249', '683'] },
+          'Greater Sudbury': { postalPrefixes: ['P'], areaCodes: ['705', '249', '683'] },
+          'Thunder Bay': { postalPrefixes: ['P'], areaCodes: ['807'] },
+          'Sault Ste. Marie': { postalPrefixes: ['P'], areaCodes: ['705', '249', '683'] },
+          'North Bay': { postalPrefixes: ['P'], areaCodes: ['705', '249', '683'] },
+          Timmins: { postalPrefixes: ['P'], areaCodes: ['705', '249', '683'] }
+        } },
+        AB: { name: 'Alberta', defaultCity: 'Calgary', cities: {
+          Calgary: { postalPrefixes: ['T'], areaCodes: ['403', '587', '825'] },
+          Edmonton: { postalPrefixes: ['T'], areaCodes: ['780', '587', '825'] }
+        } },
+        BC: { name: 'British Columbia', defaultCity: 'Vancouver', cities: {
+          Vancouver: { postalPrefixes: ['V'], areaCodes: ['604', '778', '236'] },
+          Victoria: { postalPrefixes: ['V'], areaCodes: ['250', '778', '236'] }
+        } },
+        MB: { name: 'Manitoba', defaultCity: 'Winnipeg', cities: {
+          Winnipeg: { postalPrefixes: ['R'], areaCodes: ['204', '431'] }
+        } },
+        NB: { name: 'New Brunswick', defaultCity: 'Fredericton', cities: {
+          Fredericton: { postalPrefixes: ['E'], areaCodes: ['506'] },
+          Moncton: { postalPrefixes: ['E'], areaCodes: ['506'] }
+        } },
+        NL: { name: 'Newfoundland and Labrador', defaultCity: "St. John's", cities: {
+          "St. John's": { postalPrefixes: ['A'], areaCodes: ['709'] }
+        } },
+        NS: { name: 'Nova Scotia', defaultCity: 'Halifax', cities: {
+          Halifax: { postalPrefixes: ['B'], areaCodes: ['902', '782'] }
+        } },
+        NT: { name: 'Northwest Territories', defaultCity: 'Yellowknife', cities: {
+          Yellowknife: { postalPrefixes: ['X'], areaCodes: ['867'] }
+        } },
+        NU: { name: 'Nunavut', defaultCity: 'Iqaluit', cities: {
+          Iqaluit: { postalPrefixes: ['X'], areaCodes: ['867'] }
+        } },
+        PE: { name: 'Prince Edward Island', defaultCity: 'Charlottetown', cities: {
+          Charlottetown: { postalPrefixes: ['C'], areaCodes: ['902', '782'] }
+        } },
+        QC: { name: 'Quebec', defaultCity: 'Montreal', cities: {
+          Montreal: { postalPrefixes: ['H'], areaCodes: ['514', '438'] },
+          'Quebec City': { postalPrefixes: ['G'], areaCodes: ['418', '581'] }
+        } },
+        SK: { name: 'Saskatchewan', defaultCity: 'Saskatoon', cities: {
+          Saskatoon: { postalPrefixes: ['S'], areaCodes: ['306', '639'] },
+          Regina: { postalPrefixes: ['S'], areaCodes: ['306', '639'] }
+        } },
+        YT: { name: 'Yukon', defaultCity: 'Whitehorse', cities: {
+          Whitehorse: { postalPrefixes: ['Y'], areaCodes: ['867'] }
+        } }
+      };
+
+      function pickRandom(list) {
+        return list[Math.floor(Math.random() * list.length)];
+      }
+
+      function populateCityOptions() {
+        const province = PROVINCE_DATA[addressProvince.value];
+        addressCity.innerHTML = Object.keys(province.cities)
+          .sort((a, b) => a.localeCompare(b))
+          .map((city) => `<option value="${city}">${city}</option>`)
+          .join('');
+        addressCity.value = province.defaultCity;
+      }
+
+      populateCityOptions();
+      addressProvince.addEventListener('change', populateCityOptions);
+
+      function generatePostalCode(prefixes) {
+        const digit = () => Math.floor(Math.random() * 10);
+        const letter = () => POSTAL_LETTERS[Math.floor(Math.random() * POSTAL_LETTERS.length)];
+        return `${pickRandom(prefixes)}${digit()}${letter()} ${digit()}${letter()}${digit()}`;
+      }
+
+      function generatePhoneNumber(areaCodes) {
+        const line = String(Math.floor(Math.random() * 100)).padStart(2, '0');
+        return `(${pickRandom(areaCodes)}) 555-01${line}`;
+      }
+
+      function copyText(text) {
+        const helper = document.createElement('textarea');
+        helper.value = text;
+        helper.setAttribute('readonly', '');
+        helper.style.position = 'fixed';
+        helper.style.opacity = '0';
+        document.body.appendChild(helper);
+        helper.select();
+        const copied = document.execCommand('copy');
+        helper.remove();
+        return copied;
+      }
+
+      document.querySelector('#generate-address').addEventListener('click', () => {
+        const province = PROVINCE_DATA[addressProvince.value];
+        const city = province.cities[addressCity.value];
+        const streetNumber = 1 + Math.floor(Math.random() * 998);
+        const unit = addressUnit.checked ? `Unit ${1 + Math.floor(Math.random() * 300)} - ` : '';
+        const postalCode = generatePostalCode(city.postalPrefixes);
+        generatedAddress.textContent = `${unit}${streetNumber} ${pickRandom(STREET_NAMES)} ${pickRandom(STREET_TYPES)}, ${addressCity.value}, ${addressProvince.value} ${postalCode}`;
+        generatedPhone.textContent = generatePhoneNumber(city.areaCodes);
+        addressStatus.textContent = 'Fake address and phone number generated.';
+        addressStatus.className = 'status success';
+      });
+
+      document.querySelector('#copy-address').addEventListener('click', async () => {
+        const text = generatedAddress.textContent;
+        if (!text || text.startsWith('Select a province')) return;
+        try {
+          if (!copyText(text)) throw new Error('Copy failed');
+          addressStatus.textContent = 'Address copied to clipboard.';
+          addressStatus.className = 'status success';
+        } catch {
+          addressStatus.textContent = 'Copy is unavailable in this browser.';
+          addressStatus.className = 'status error';
+        }
+      });
+
+      document.querySelector('#copy-phone').addEventListener('click', async () => {
+        const text = generatedPhone.textContent;
+        if (!text || text.startsWith('(---)')) return;
+        try {
+          if (!copyText(text)) throw new Error('Copy failed');
+          addressStatus.textContent = 'Phone number copied to clipboard.';
+          addressStatus.className = 'status success';
+        } catch {
+          addressStatus.textContent = 'Copy is unavailable in this browser.';
+          addressStatus.className = 'status error';
+        }
+      });
+
+      clearAddressButton.addEventListener('click', () => {
+        generatedAddress.textContent = 'Select a province and city, then generate.';
+        generatedPhone.textContent = '(---) --- ----';
+        addressStatus.textContent = '';
+        addressStatus.className = 'status';
+      });
+    </script>
+  </body>
+  </html>
