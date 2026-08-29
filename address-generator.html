@@ -24,7 +24,6 @@
       * { box-sizing: border-box; }
       body {
         margin: 0;
-        zoom: .90;
         min-height: 100vh;
         color: var(--ink);
         background: var(--paper);
@@ -60,28 +59,87 @@
       button { border: 0; border-radius: 3px; cursor: pointer; font: 700 12px 'Trebuchet MS', sans-serif; letter-spacing: .08em; text-transform: uppercase; transition: transform .15s ease, background .15s ease, box-shadow .15s ease; }
       button:hover { transform: translateY(-2px); }
       button:focus-visible { outline: 3px solid rgba(221, 104, 79, .45); outline-offset: 3px; }
-      .primary { min-height: 51px; padding: 0 24px; color: #fff; background: var(--teal); box-shadow: 0 7px 14px rgba(8, 127, 118, .2); }
+      [role="button"]:focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; }
+      .primary { min-height: 46px; padding: 0 20px; color: #fff; background: var(--teal); box-shadow: 0 7px 14px rgba(8, 127, 118, .2); }
       .primary:hover { background: var(--teal-dark); box-shadow: 0 10px 18px rgba(8, 127, 118, .25); }
-      .batch-button { width: 100%; margin-top: 18px; }
-      .clear-button { width: 100%; margin-top: 10px; padding: 13px 18px; border: 1px solid rgba(198, 103, 103, .42); color: var(--invalid); background: #fff0ed; font-size: 13px; box-shadow: var(--soft-shadow); }
+      .batch-button { display: block; width: 50%; margin: 18px auto 0; }
+      .clear-button { display: block; width: 50%; margin: 10px auto 0; padding: 11px 16px; border: 1px solid rgba(198, 103, 103, .42); color: var(--invalid); background: #fff0ed; font-size: 12px; box-shadow: var(--soft-shadow); }
       .clear-button:hover { color: #fff; background: var(--invalid); border-color: var(--invalid); }
       .batch-settings { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: end; margin-top: 18px; }
       .batch-settings label { margin-bottom: 0; }
       .batch-number { display: flex; align-items: center; justify-content: space-between; gap: 7px; margin: 0; padding: 10px 10px 10px 13px; border: 1px solid var(--line); border-radius: 3px; color: var(--teal-dark); background: rgba(244, 248, 244, .85); font: 16px 'Trebuchet MS', sans-serif; letter-spacing: .04em; box-shadow: 0 2px 5px rgba(30, 56, 54, .04); }
-      .batch-copy { flex: 0 0 auto; min-width: 72px; padding: 10px 14px; border: 1px solid rgba(221, 104, 79, .42); color: var(--coral); background: #fffdf8; font-size: 13px; box-shadow: 0 3px 8px rgba(30, 56, 54, .07); }
+      .batch-copy { flex: 0 0 auto; min-width: 66px; padding: 8px 12px; border: 1px solid rgba(221, 104, 79, .42); color: var(--coral); background: #fffdf8; font-size: 12px; box-shadow: 0 3px 8px rgba(30, 56, 54, .07); }
       .batch-copy:hover { color: #fff; background: var(--coral); border-color: var(--coral); }
       .address-results { display: grid; gap: 8px; margin: 18px 0; }
+      .address-results.scrollable { max-height: 360px; overflow-y: auto; padding-right: 6px; scrollbar-gutter: stable; }
       .address-row span { flex: 1; min-width: 0; word-break: break-word; }
+      .profile-generator { margin-top: 26px; padding: clamp(28px, 5vw, 56px); }
+      .profile-fields { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 18px; }
+      .profile-fieldset { margin: 0; padding: 0; border: 0; }
+      .profile-fieldset legend { color: var(--muted); font: 700 13px/1.2 'Trebuchet MS', sans-serif; letter-spacing: .14em; text-transform: uppercase; }
+      .name-options { display: contents; }
+      .name-options[hidden] { display: none; }
+      .select-all-field { margin: 18px 0 0; color: var(--teal-dark); }
+      .profile-field { display: flex; align-items: center; gap: 9px; margin: 0; padding: 12px; border: 1px solid var(--line); border-radius: 3px; color: var(--ink); background: rgba(244, 248, 244, .7); font: 14px 'Trebuchet MS', sans-serif; letter-spacing: 0; text-transform: none; }
+      .profile-field:has(input:checked) { border-color: rgba(8, 127, 118, .45); background: rgba(224, 243, 237, .85); }
+      .profile-field input { width: 16px; height: 16px; margin: 0; accent-color: var(--teal); }
+      .profile-options { display: flex; align-items: center; justify-content: flex-start; gap: 24px; margin-top: 14px; }
+      .profile-options .hyphen-toggle { margin: 0; }
+      .profile-options .select-all-field { margin-left: auto; }
+      .profile-options [hidden] { display: none; }
+      .profile-location { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 50%; gap: 8px; margin-top: 18px; }
+      .profile-location select { width: 100%; }
+      .profile-city-control { display: flex; align-items: end; gap: 10px; }
+      .profile-city-control > div { flex: 1; min-width: 0; }
+      .profile-city-control .select-all-field { flex: 0 0 auto; margin: 0 0 14px; white-space: nowrap; }
+      .profile-location[hidden] { display: none; }
+      .gender-settings { margin-top: 18px; }
+      .gender-ratio { margin-top: 14px; }
+      .gender-ratio input[type="range"] { display: block; width: 50%; height: 6px; padding: 0; accent-color: var(--teal); }
+      .gender-ratio-values { display: flex; justify-content: space-between; width: 50%; margin-top: 5px; color: var(--ink); font: 13px 'Trebuchet MS', sans-serif; }
+      .gender-ratio-values strong { color: var(--coral); }
+      .profile-results { display: grid; gap: 10px; max-height: 460px; margin-top: 22px; overflow-y: auto; padding-right: 5px; scroll-margin-top: 20px; }
+      .profile-card { position: relative; display: grid; grid-template-columns: 24px minmax(0, 1fr); column-gap: 6px; padding: 17px 110px 17px 18px; border: 1px solid var(--line); border-radius: 3px; background: rgba(244, 248, 244, .7); transition: border-color .15s ease, box-shadow .15s ease; }
+      .profile-card:hover { border-color: rgba(8, 127, 118, .45); box-shadow: 0 5px 14px rgba(30, 56, 54, .08); }
+      .profile-card::before { content: attr(data-profile-number) "."; grid-column: 1; grid-row: 1 / -1; align-self: start; transform: translateY(4px); color: var(--teal-dark); font: 16px 'Trebuchet MS', sans-serif; }
+      .profile-card.address-format { display: block; padding: 17px 18px; }
+      .profile-card.address-format::before { content: none; }
+      .profile-card p { grid-column: 2; margin: 4px 0; color: var(--ink); font: 14px/1.45 'Trebuchet MS', sans-serif; }
+      .profile-card .profile-address-result { white-space: pre-line; }
+      .profile-field-row { display: flex; align-items: center; gap: 8px; width: fit-content; max-width: 100%; padding: 5px 8px; border: 1px solid transparent; border-radius: 3px; cursor: copy; transition: color .15s ease, background .15s ease, border-color .15s ease; }
+      .profile-field-row .field-value { flex: 0 1 auto; min-width: 0; }
+      .profile-field-row:hover { color: var(--teal-dark); background: rgba(224, 243, 237, .72); border-color: rgba(8, 127, 118, .28); }
+      .profile-field-row:active { background: rgba(8, 127, 118, .16); }
+      .profile-card strong { display: inline-block; min-width: 92px; color: var(--teal-dark); }
+      .profile-card .batch-copy { position: absolute; top: 50%; right: 14px; transform: translateY(-50%); }
+      .profile-copy-all { display: block; width: 50%; min-height: 44px; margin: 10px auto 0; padding: 11px 16px; border: 1px solid rgba(221, 104, 79, .42); color: var(--coral); background: #fffdf8; font-size: 12px; box-shadow: var(--soft-shadow); }
+      .profile-copy-all:hover { color: #fff; background: var(--coral); border-color: var(--coral); }
+      .download-csv { display: block; width: 50%; min-height: 44px; margin: 10px auto 0; padding: 11px 16px; border: 1px solid rgba(8, 127, 118, .42); color: var(--teal-dark); background: #eef8f4; font-size: 12px; box-shadow: var(--soft-shadow); }
+      .download-csv:hover { color: #fff; background: var(--teal); border-color: var(--teal); }
+      .download-csv[hidden] { display: none; }
+      button:disabled { cursor: not-allowed; opacity: .45; transform: none; }
+      .empty-state { margin: 0; padding: 22px; border: 1px dashed var(--line); color: var(--muted); background: rgba(244, 248, 244, .45); font: 14px 'Trebuchet MS', sans-serif; text-align: center; }
+      .selection-summary { margin: 12px 0 0; color: var(--muted); font: 12px/1.4 'Trebuchet MS', sans-serif; }
+      .copy-hint { display: flex; flex-wrap: wrap; gap: 4px 10px; margin: 16px 0 0; padding: 11px 14px; border-left: 4px solid var(--coral); color: var(--teal-dark); background: rgba(255, 240, 237, .86); font: 15px/1.5 'Trebuchet MS', sans-serif; }
+      .copy-hint strong { color: var(--coral); }
+      .copy-hint .complete-profile-hint { color: var(--teal-dark); }
+      .user-guide { margin-top: 28px; padding: clamp(24px, 4vw, 40px) 0 8px; border-top: 1px solid rgba(212, 220, 215, .95); }
+      .user-guide h2 { margin: 0 0 20px; color: var(--teal-dark); font-size: clamp(26px, 4vw, 38px); font-weight: 400; }
+      .user-guide-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+      .user-guide h3 { margin: 0 0 9px; color: var(--coral); font: 700 14px/1.3 'Trebuchet MS', sans-serif; }
+      .user-guide ol, .user-guide ul { margin: 0; padding-left: 21px; color: var(--ink); font: 14px/1.6 'Trebuchet MS', sans-serif; }
+      .user-guide li + li { margin-top: 5px; }
       .address-steps { margin: 18px 0 0; padding-left: 22px; color: var(--ink); font: 14px/1.65 'Trebuchet MS', sans-serif; }
       .address-steps li + li { margin-top: 7px; }
       .hyphen-toggle { display: flex; align-items: center; gap: 8px; margin: 12px 0 0; color: var(--muted); font: 13px 'Trebuchet MS', sans-serif; letter-spacing: 0; text-transform: none; }
       .hyphen-toggle input { width: 16px; height: 16px; margin: 0; accent-color: var(--teal); }
       .status { min-height: 25px; margin: 17px 0 0; color: var(--muted); font: 16px/1.4 'Trebuchet MS', sans-serif; font-weight: 700; }
       .status.success { color: var(--valid); }
+      .status.copy-success { color: var(--coral); }
       .status.error { color: var(--invalid); }
       .guide-note { margin: 12px 0 0; color: var(--muted); font: 13px/1.55 'Trebuchet MS', sans-serif; }
       footer { position: fixed; right: 0; bottom: 0; left: 0; z-index: 5; display: flex; justify-content: space-between; gap: 20px; margin: 0; padding: 18px max(20px, calc((100vw - 1080px) / 2 + 20px)); border-top: 1px solid rgba(212, 220, 215, .95); color: var(--muted); background: rgba(255, 252, 249, .94); font: 11px 'Trebuchet MS', sans-serif; box-shadow: 0 -8px 24px rgba(73, 91, 91, .08); backdrop-filter: blur(10px); }
-      footer span { color: #b4c0c3; font-weight: 400; }
+      footer span { color: var(--muted); font-weight: 400; }
       footer span:first-child { font-size: 14px; }
       footer span:last-child { font-size: 14px; }
       @keyframes rise-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
@@ -92,7 +150,9 @@
         .intro { max-width: 360px; margin-top: 20px; }
         .address-panel { padding: 25px; }
         .batch-settings { grid-template-columns: 1fr; }
-        .primary { width: 100%; }
+        .profile-location { width: 100%; }
+        .primary { width: 50%; }
+        .user-guide-grid { grid-template-columns: 1fr; gap: 20px; }
         body { padding-bottom: 96px; }
         footer { display: block; margin: 0; padding: 16px 14px; line-height: 1.6; }
       }
@@ -102,19 +162,36 @@
     <main class="shell">
       <header>
         <div>
-          <h1>Address &amp; Phone Generator</h1>
+          <h1>Canadian Test Data Generator</h1>
           <p class="page-nav-link"><a href="./index%20copy.html">&larr; Back to SIN Generator</a></p>
         </div>
-        <p class="intro">Create a fake Canadian mailing address and a matching local phone number.</p>
+        <p class="intro">Build realistic, unique Canadian test profiles locally, with no data stored or transmitted.</p>
       </header>
 
-      <section class="panel address-panel" aria-labelledby="address-title">
-        <p class="eyebrow">Address &amp; Phone</p>
-        <h2 id="address-title">Choose a province and city</h2>
-        <div class="batch-settings">
+      <section class="panel profile-generator" aria-labelledby="profile-title">
+        <p class="eyebrow">01 / Generate</p>
+        <h2 id="profile-title">Generate test data</h2>
+        <fieldset class="profile-fieldset">
+          <legend>Fields to generate</legend>
+          <div class="profile-fields" role="group" aria-label="Profile fields to generate">
+          <label class="profile-field"><input type="checkbox" name="profile-field" value="sin" checked> SIN</label>
+          <label class="profile-field"><input type="checkbox" name="profile-field" value="fullName" checked> Full name</label>
+          <span class="name-options" id="name-options">
+            <label class="profile-field"><input type="checkbox" name="profile-field" value="firstName"> First name</label>
+            <label class="profile-field"><input type="checkbox" name="profile-field" value="middleName"> Middle name</label>
+            <label class="profile-field"><input type="checkbox" name="profile-field" value="lastName"> Last name</label>
+          </span>
+          <label class="profile-field"><input type="checkbox" name="profile-field" value="gender" checked> Gender</label>
+          <label class="profile-field"><input type="checkbox" name="profile-field" value="dob" checked> Date of birth</label>
+          <label class="profile-field"><input type="checkbox" name="profile-field" value="email" checked> Email</label>
+          <label class="profile-field"><input type="checkbox" name="profile-field" value="phone" checked> Phone number</label>
+          <label class="profile-field"><input type="checkbox" name="profile-field" value="address" checked> Address</label>
+          </div>
+        </fieldset>
+        <div class="profile-location" id="profile-location">
           <div>
-            <label for="address-province">Province</label>
-            <select id="address-province">
+            <label for="profile-province">Province</label>
+            <select id="profile-province">
               <option value="AB">Alberta</option>
               <option value="BC">British Columbia</option>
               <option value="MB">Manitoba</option>
@@ -130,46 +207,104 @@
               <option value="YT">Yukon</option>
             </select>
           </div>
+          <div class="profile-city-control">
+            <div>
+              <label for="profile-city">City</label>
+              <select id="profile-city"></select>
+            </div>
+          </div>
+        </div>
+        <div class="profile-options">
+          <label class="hyphen-toggle" id="address-unit-option"><input id="address-unit" type="checkbox"> Include unit number</label>
+          <label class="hyphen-toggle select-all-field"><input id="select-all-fields" type="checkbox"> Select all fields</label>
+        </div>
+        <div class="gender-settings">
+          <div class="gender-ratio">
+            <label for="gender-ratio">Gender ratio</label>
+            <input id="gender-ratio" type="range" min="0" max="100" value="50" aria-describedby="gender-ratio-help">
+            <div class="gender-ratio-values" aria-live="polite">
+              <span>Male: <strong id="male-ratio">50%</strong></span>
+              <span>Female: <strong id="female-ratio">50%</strong></span>
+            </div>
+            <p class="guide-note" id="gender-ratio-help">Names are generated according to this Male/Female ratio.</p>
+          </div>
+        </div>
+        <div class="batch-settings">
           <div>
-            <label for="address-city">City</label>
-            <select id="address-city"></select>
+            <label for="profile-count">How many profiles? (1-100)</label>
+            <input id="profile-count" type="number" min="1" max="100" value="1" inputmode="numeric">
           </div>
         </div>
-        <label class="hyphen-toggle"><input id="address-unit" type="checkbox"> Include unit number</label>
-        <button class="primary batch-button" id="generate-address" type="button">Generate address &amp; phone</button>
-        <div class="address-results">
-          <div class="batch-number address-row">
-            <span id="generated-address">Select a province and city, then generate.</span>
-            <button class="batch-copy" id="copy-address" type="button" aria-label="Copy generated address">Copy</button>
-          </div>
-          <div class="batch-number address-row">
-            <span id="generated-phone">(---) --- ----</span>
-            <button class="batch-copy" id="copy-phone" type="button" aria-label="Copy generated phone number">Copy</button>
-          </div>
+        <button class="primary batch-button" id="generate-profiles" type="button">Generate test data</button>
+        <button class="profile-copy-all" id="profile-copy-all" type="button" disabled>Copy all profiles</button>
+        <button class="download-csv" id="download-csv" type="button" hidden>Download CSV</button>
+        <button class="clear-button" id="clear-profiles" type="button">Clear search results</button>
+        <p class="status" id="profile-status" aria-live="polite"></p>
+        <p class="selection-summary" id="selection-summary" aria-live="polite"></p>
+        <p class="copy-hint"><strong>Click any generated field to copy its value.</strong><span class="complete-profile-hint">Use Copy to copy the complete profile.</span></p>
+        <div class="profile-results" id="profile-results" aria-live="polite" aria-label="Generated profiles">
+          <p class="empty-state">Choose your fields and generate a profile to see results here.</p>
         </div>
-        <p class="status" id="address-status"></p>
-        <button class="clear-button" id="clear-address" type="button">Clear address &amp; phone</button>
-        <ol class="address-steps">
-          <li>Select a <strong>Province</strong>, defaulting to <strong>Ontario</strong>.</li>
-          <li>Select a <strong>City</strong>, defaulting to <strong>Toronto</strong>.</li>
-          <li>Optionally check <strong>Include unit number</strong>.</li>
-          <li>Click <strong>Generate address &amp; phone</strong>, then <strong>Copy</strong> the result you need.</li>
-        </ol>
-        <p class="guide-note">Phone numbers use the North American fictional range 555-0100–555-0199, reserved for testing and never assigned to real subscribers.</p>
       </section>
 
-      <footer><span>Author: Gowrisankar Chandrasekaran</span><span>Local-only tool · No numbers are stored or transmitted</span></footer>
+      <section class="user-guide" aria-labelledby="user-guide-title">
+        <h2 id="user-guide-title">User Guide</h2>
+        <div class="user-guide-grid">
+          <div>
+            <h3>1. Choose Fields</h3>
+            <ol>
+              <li>Use Select All Fields, or choose individual fields.</li>
+              <li>Full Name reveals optional First, Middle, and Last Name fields.</li>
+              <li>Address reveals Province, City, and Include Unit Number.</li>
+            </ol>
+          </div>
+          <div>
+            <h3>2. Generate Data</h3>
+            <ol>
+              <li>Set the Male/Female ratio for generated names.</li>
+              <li>Choose a profile count from 1 to 100.</li>
+              <li>Click Generate Test Data. Results are unique within the batch.</li>
+            </ol>
+          </div>
+          <div>
+            <h3>3. Copy or Download</h3>
+            <ul>
+              <li>Click any result field to copy just that value.</li>
+              <li>Use Copy to copy one complete profile.</li>
+              <li>For multiple profiles, use Copy All Profiles or Download CSV.</li>
+              <li>Use Clear Search Results before starting over.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <footer><span>Developer: Gowrisankar Chandrasekaran</span><span>Local-only tool · No numbers are stored or transmitted</span></footer>
     </main>
 
     <script>
       'use strict';
-      const addressProvince = document.querySelector('#address-province');
-      const addressCity = document.querySelector('#address-city');
       const addressUnit = document.querySelector('#address-unit');
-      const generatedAddress = document.querySelector('#generated-address');
-      const generatedPhone = document.querySelector('#generated-phone');
-      const addressStatus = document.querySelector('#address-status');
-      const clearAddressButton = document.querySelector('#clear-address');
+      const profileCount = document.querySelector('#profile-count');
+      const genderRatio = document.querySelector('#gender-ratio');
+      const maleRatio = document.querySelector('#male-ratio');
+      const femaleRatio = document.querySelector('#female-ratio');
+      const profileProvince = document.querySelector('#profile-province');
+      const profileCitySelect = document.querySelector('#profile-city');
+      const profileLocation = document.querySelector('#profile-location');
+      const addressUnitOption = document.querySelector('#address-unit-option');
+      const profileAddressField = document.querySelector('input[name="profile-field"][value="address"]');
+      const fullNameField = document.querySelector('input[name="profile-field"][value="fullName"]');
+      const nameOptions = document.querySelector('#name-options');
+      const profileFields = Array.from(document.querySelectorAll('input[name="profile-field"]'));
+      const selectAllFields = document.querySelector('#select-all-fields');
+      const profileResults = document.querySelector('#profile-results');
+      const profileStatus = document.querySelector('#profile-status');
+      const profileCopyAllButton = document.querySelector('#profile-copy-all');
+      const downloadCsvButton = document.querySelector('#download-csv');
+      const selectionSummary = document.querySelector('#selection-summary');
+      const profileFieldOrder = ['sin', 'fullName', 'firstName', 'middleName', 'lastName', 'gender', 'dob', 'email', 'phone', 'address'];
+      let generatedProfiles = [];
+      let csvDownloaded = false;
 
       const POSTAL_LETTERS = 'ABCEGHJKLMNPRSTVWXYZ';
       const STREET_NAMES = ['Maple', 'Oak', 'Cedar', 'Birch', 'Elm', 'King', 'Queen', 'Victoria', 'Bay', 'Yonge', 'Bloor', 'College', 'Church', 'Front', 'Main', 'Pine', 'Willow', 'Spruce', 'River', 'Lake'];
@@ -266,17 +401,43 @@
         return list[Math.floor(Math.random() * list.length)];
       }
 
-      function populateCityOptions() {
-        const province = PROVINCE_DATA[addressProvince.value];
-        addressCity.innerHTML = Object.keys(province.cities)
+      function populateProfileCityOptions() {
+        const province = PROVINCE_DATA[profileProvince.value];
+        profileCitySelect.innerHTML = Object.keys(province.cities)
           .sort((a, b) => a.localeCompare(b))
           .map((city) => `<option value="${city}">${city}</option>`)
           .join('');
-        addressCity.value = province.defaultCity;
+        profileCitySelect.value = province.defaultCity;
       }
 
-      populateCityOptions();
-      addressProvince.addEventListener('change', populateCityOptions);
+      populateProfileCityOptions();
+      profileProvince.addEventListener('change', populateProfileCityOptions);
+      function toggleProfileLocation() {
+        const showLocation = profileAddressField.checked;
+        profileLocation.hidden = !showLocation;
+        profileLocation.style.display = showLocation ? 'grid' : 'none';
+        addressUnitOption.hidden = !showLocation;
+      }
+
+      toggleProfileLocation();
+      profileAddressField.addEventListener('change', toggleProfileLocation);
+      function toggleNameOptions() {
+        nameOptions.hidden = !fullNameField.checked;
+      }
+
+      toggleNameOptions();
+      fullNameField.addEventListener('change', toggleNameOptions);
+      selectAllFields.addEventListener('change', () => {
+        profileFields.forEach((field) => { field.checked = selectAllFields.checked; });
+        toggleProfileLocation();
+        toggleNameOptions();
+        updateSelectionSummary();
+      });
+      profileFields.forEach((field) => field.addEventListener('change', () => {
+        selectAllFields.checked = profileFields.every((profileField) => profileField.checked);
+        updateSelectionSummary();
+      }));
+      updateSelectionSummary();
 
       function generatePostalCode(prefixes) {
         const digit = () => Math.floor(Math.random() * 10);
@@ -287,6 +448,29 @@
       function generatePhoneNumber(areaCodes) {
         const line = String(Math.floor(Math.random() * 100)).padStart(2, '0');
         return `(${pickRandom(areaCodes)}) 555-01${line}`;
+      }
+
+      function checksumSum(digits) {
+        return digits.reduce((sum, digit, index) => {
+          let value = digit;
+          if (index % 2 === 1) {
+            value *= 2;
+            if (value > 9) value -= 9;
+          }
+          return sum + value;
+        }, 0);
+      }
+
+      function generateSin() {
+        const firstDigit = pickRandom([1, 2, 3, 4, 5, 6, 7, 9]);
+        const digits = [firstDigit, ...Array.from({ length: 7 }, () => Math.floor(Math.random() * 10))];
+        const remainder = checksumSum(digits) % 10;
+        digits.push(remainder === 0 ? 0 : 10 - remainder);
+        return digits.join('');
+      }
+
+      function isValidSin(sin) {
+        return /^\d{9}$/.test(sin) && ![0, 8].includes(Number(sin[0])) && checksumSum(sin.split('').map(Number)) % 10 === 0;
       }
 
       function copyText(text) {
@@ -302,50 +486,302 @@
         return copied;
       }
 
-      document.querySelector('#generate-address').addEventListener('click', () => {
-        const province = PROVINCE_DATA[addressProvince.value];
-        const city = province.cities[addressCity.value];
-        const streetNumber = 1 + Math.floor(Math.random() * 998);
-        const unit = addressUnit.checked ? `Unit ${1 + Math.floor(Math.random() * 300)} - ` : '';
-        const postalCode = generatePostalCode(city.postalPrefixes);
-        generatedAddress.textContent = `${unit}${streetNumber} ${pickRandom(STREET_NAMES)} ${pickRandom(STREET_TYPES)}, ${addressCity.value}, ${addressProvince.value} ${postalCode}`;
-        generatedPhone.textContent = generatePhoneNumber(city.areaCodes);
-        addressStatus.textContent = 'Fake address and phone number generated.';
-        addressStatus.className = 'status success';
+      const PROFILE_FIRST_NAMES = ['Alex', 'Jordan', 'Taylor', 'Riley', 'Casey', 'Avery', 'Morgan', 'Sam', 'Jamie', 'Cameron', 'Drew', 'Quinn'];
+      const PROFILE_MIDDLE_NAMES = ['James', 'Marie', 'Michael', 'Rose', 'David', 'Anne', 'Robert', 'Grace', 'Daniel', 'Louise', 'Thomas', 'Elizabeth'];
+      const PROFILE_GENDER_NAMES = {
+        female: { first: ['Ava', 'Emma', 'Olivia', 'Sophia', 'Mia', 'Charlotte', 'Amelia', 'Isla', 'Ella', 'Grace', 'Lily', 'Chloe'], middle: ['Marie', 'Rose', 'Anne', 'Grace', 'Louise', 'Claire', 'Jane', 'Elizabeth', 'Hope', 'Faith', 'Nicole', 'Renee'] },
+        male: { first: ['Liam', 'Noah', 'Oliver', 'William', 'Benjamin', 'Lucas', 'Henry', 'James', 'Theodore', 'Jack', 'Leo', 'Daniel'], middle: ['James', 'Michael', 'David', 'Robert', 'Daniel', 'Thomas', 'Joseph', 'Andrew', 'Charles', 'Edward', 'Matthew', 'John'] },
+      };
+
+      function updateGenderRatio() {
+        const malePercentage = Number(genderRatio.value);
+        maleRatio.textContent = `${malePercentage}%`;
+        femaleRatio.textContent = `${100 - malePercentage}%`;
+      }
+
+      updateGenderRatio();
+      genderRatio.addEventListener('input', updateGenderRatio);
+      const PROFILE_LAST_NAMES = ['Morgan', 'Lee', 'Smith', 'Chen', 'Martin', 'Patel', 'Brown', 'Wilson', 'Garcia', 'Singh', 'Nguyen', 'Clark'];
+      const PROFILE_STREETS = ['Maple Street', 'Cedar Avenue', 'King Road', 'Victoria Drive', 'Lake Crescent', 'Pine Lane'];
+      function uniqueValue(usedValues, createValue) {
+        let value;
+        do value = createValue(); while (usedValues.has(value));
+        usedValues.add(value);
+        return value;
+      }
+
+      function createGenderAssignments(count) {
+        if (count === 1) return [Math.random() < 0.5 ? 'male' : 'female'];
+        const maleCount = Math.round(count * Number(genderRatio.value) / 100);
+        const assignments = [
+          ...Array.from({ length: maleCount }, () => 'male'),
+          ...Array.from({ length: count - maleCount }, () => 'female')
+        ];
+        for (let index = assignments.length - 1; index > 0; index--) {
+          const swapIndex = Math.floor(Math.random() * (index + 1));
+          [assignments[index], assignments[swapIndex]] = [assignments[swapIndex], assignments[index]];
+        }
+        return assignments;
+      }
+
+      function generateProfile(usedValues, selectedGender) {
+        const province = PROVINCE_DATA[profileProvince.value];
+        const cityName = profileCitySelect.value;
+        const city = province.cities[cityName];
+        const genderNames = PROFILE_GENDER_NAMES[selectedGender];
+        const firstName = uniqueValue(usedValues.firstName, () => pickRandom(genderNames.first));
+        const middleName = uniqueValue(usedValues.middleName, () => pickRandom(genderNames.middle));
+        const lastName = uniqueValue(usedValues.lastName, () => pickRandom(PROFILE_LAST_NAMES));
+        const address = uniqueValue(usedValues.address, () => {
+          const unit = addressUnit.checked ? `Unit ${1 + Math.floor(Math.random() * 300)} - ` : '';
+          return `${unit}${1 + Math.floor(Math.random() * 998)} ${pickRandom(PROFILE_STREETS)}, ${cityName}, ${profileProvince.value} ${generatePostalCode(city.postalPrefixes)}`;
+        });
+        const dob = uniqueValue(usedValues.dob, () => {
+          const birthYear = 1955 + Math.floor(Math.random() * 48);
+          const month = String(1 + Math.floor(Math.random() * 12)).padStart(2, '0');
+          const day = String(1 + Math.floor(Math.random() * 28)).padStart(2, '0');
+          return `${birthYear}-${month}-${day}`;
+        });
+        const phone = uniqueValue(usedValues.phone, () => generatePhoneNumber(city.areaCodes));
+        const sin = uniqueValue(usedValues.sin, () => {
+          let candidate = generateSin();
+          while (!isValidSin(candidate)) candidate = generateSin();
+          return candidate;
+        });
+        return {
+          sin: `${sin.slice(0, 3)}-${sin.slice(3, 6)}-${sin.slice(6)}`,
+          gender: selectedGender[0].toUpperCase() + selectedGender.slice(1),
+          firstName,
+          middleName,
+          lastName,
+          email: uniqueValue(usedValues.email, () => `${firstName.toLowerCase()}.${lastName.toLowerCase()}@ontario.ca`),
+          address,
+          phone,
+          dob
+        };
+      }
+
+      function selectedProfileFields() {
+        const selectedFields = new Set(Array.from(document.querySelectorAll('input[name="profile-field"]:checked'), (input) => input.value));
+        return profileFieldOrder.filter((field) => selectedFields.has(field));
+      }
+
+      function updateSelectionSummary() {
+        const count = selectedProfileFields().length;
+        selectionSummary.textContent = `${count} field${count === 1 ? '' : 's'} selected`;
+      }
+
+      function selectedNameFields(fields) {
+        return ['firstName', 'middleName', 'lastName'].filter((field) => fields.includes(field));
+      }
+
+      function displayProfileFields(fields) {
+        if (!fields.includes('fullName')) return fields;
+        const fullNameIndex = fields.indexOf('fullName');
+        return [
+          ...fields.slice(0, fullNameIndex + 1),
+          ...selectedNameFields(fields),
+          ...fields.slice(fullNameIndex + 1).filter((field) => !['firstName', 'middleName', 'lastName'].includes(field))
+        ];
+      }
+
+      function formatProfileName(profile, fields) {
+        const nameFields = selectedNameFields(fields);
+        if (!fields.includes('fullName') && !nameFields.length) return '';
+        return (nameFields.length ? nameFields : ['firstName', 'middleName', 'lastName']).map((field) => profile[field]).join(' ');
+      }
+
+      function profileFieldValue(profile, field, fields) {
+        return field === 'name' || field === 'fullName' ? formatProfileName(profile, fields) : profile[field];
+      }
+
+      function profileFieldDisplayValue(profile, field, fields) {
+        const value = profileFieldValue(profile, field, fields);
+        return field === 'dob' ? `${value} (YYYY-MM-DD)` : value;
+      }
+
+      function profileText(profile, fields) {
+        if (fields.length === 2 && fields.includes('address') && fields.includes('phone')) return `${profile.address}\n${profile.phone}`;
+        const labels = { gender: 'GENDER', fullName: 'FULL NAME', firstName: 'FIRST NAME', middleName: 'MIDDLE NAME', lastName: 'LAST NAME', dob: 'DOB' };
+        const name = formatProfileName(profile, fields);
+        const displayFields = displayProfileFields(fields);
+        return displayFields.map((field) => `${field === 'fullName' ? 'FULL NAME' : field === 'name' ? 'NAME' : labels[field] || field.toUpperCase()}: ${field === 'fullName' || field === 'name' ? name : profile[field]}`).join('\n');
+      }
+
+      function exportFields(fields) {
+        if (!fields.includes('fullName')) return fields;
+        return ['fullName', ...selectedNameFields(fields), ...fields.filter((field) => !['fullName', 'firstName', 'middleName', 'lastName'].includes(field))];
+      }
+
+      function csvValue(value) {
+        const text = String(value ?? '');
+        return /[",\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+      }
+
+      function downloadProfilesCsv() {
+        if (csvDownloaded && !window.confirm('This CSV was already downloaded. Do you want to download it again?')) return;
+        const fields = exportFields(selectedProfileFields());
+        const labels = { sin: 'SIN', gender: 'Gender', fullName: 'Full Name', firstName: 'First Name', middleName: 'Middle Name', lastName: 'Last Name', email: 'Email', address: 'Address', phone: 'Phone Number', dob: 'DOB' };
+        const rows = [fields.map((field) => labels[field] || field.toUpperCase())];
+        generatedProfiles.forEach((profile) => rows.push(fields.map((field) => profileFieldValue(profile, field, fields))));
+        const csv = rows.map((row) => row.map(csvValue).join(',')).join('\r\n');
+        const blobUrl = URL.createObjectURL(new Blob([`\ufeff${csv}`], { type: 'text/csv;charset=utf-8' }));
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = `test-profiles-${new Date().toISOString().slice(0, 10)}.csv`;
+        link.click();
+        URL.revokeObjectURL(blobUrl);
+        csvDownloaded = true;
+        profileStatus.textContent = 'CSV download started.';
+        profileStatus.className = 'status copy-success';
+      }
+
+      function renderProfiles(fields) {
+        profileResults.replaceChildren(...generatedProfiles.map((profile, index) => {
+          const card = document.createElement('div');
+          const addressPhoneOnly = fields.length === 2 && fields.includes('address') && fields.includes('phone');
+          card.className = addressPhoneOnly ? 'profile-card address-format' : 'profile-card';
+          card.dataset.profileNumber = index + 1;
+          if (addressPhoneOnly) {
+            [['address', `${index + 1}. ${profile.address}`], ['phone', profile.phone]].forEach(([field, value]) => {
+              const line = document.createElement('p');
+              line.className = 'profile-address-result profile-field-row';
+              line.dataset.profileIndex = index;
+              line.dataset.profileField = field;
+              line.setAttribute('role', 'button');
+              line.tabIndex = 0;
+              line.setAttribute('aria-label', `Copy ${field} for profile ${index + 1}`);
+              line.title = `Click to copy ${field}`;
+              const valueText = document.createElement('span');
+              valueText.className = 'field-value';
+              valueText.textContent = value;
+              line.append(valueText);
+              card.append(line);
+            });
+          } else {
+            const name = formatProfileName(profile, fields);
+            const labels = { gender: 'GENDER', fullName: 'FULL NAME', firstName: 'FIRST NAME', middleName: 'MIDDLE NAME', lastName: 'LAST NAME', dob: 'DOB' };
+            const selectedFields = fields.includes('fullName')
+              ? displayProfileFields(fields)
+              : (name ? ['name', ...fields.filter((field) => !['firstName', 'middleName', 'lastName'].includes(field))] : fields);
+            selectedFields.forEach((field) => {
+              const line = document.createElement('p');
+              const label = document.createElement('strong');
+              label.textContent = `${field === 'name' ? 'NAME' : labels[field] || field.toUpperCase()}:`;
+              line.className = 'profile-field-row';
+              line.dataset.profileIndex = index;
+              line.dataset.profileField = field;
+              line.setAttribute('role', 'button');
+              line.tabIndex = 0;
+              line.setAttribute('aria-label', `Copy ${field === 'name' || field === 'fullName' ? 'full name' : field} for profile ${index + 1}`);
+              line.title = `Click to copy ${field === 'name' || field === 'fullName' ? 'full name' : field}`;
+              const valueText = document.createElement('span');
+              valueText.className = 'field-value';
+              valueText.textContent = ` ${profileFieldDisplayValue(profile, field, fields)}`;
+              line.append(label, valueText);
+              card.append(line);
+            });
+          }
+          const copyButton = document.createElement('button');
+          copyButton.className = 'batch-copy';
+          copyButton.type = 'button';
+          copyButton.dataset.profileIndex = index;
+          copyButton.textContent = 'Copy';
+          copyButton.setAttribute('aria-label', `Copy profile ${index + 1}`);
+          copyButton.title = 'Copy complete profile';
+          card.append(copyButton);
+          return card;
+        }));
+      }
+
+      document.querySelector('#generate-profiles').addEventListener('click', () => {
+        if (generatedProfiles.length > 1 && !window.confirm('Test profiles already exist. Do you want to generate new profiles and replace them?')) return;
+        const count = Number(profileCount.value);
+        const fields = selectedProfileFields();
+        if (!Number.isInteger(count) || count < 1 || count > 100) {
+          profileStatus.textContent = 'Enter a whole number from 1 to 100.';
+          profileStatus.className = 'status error';
+          return;
+        }
+        if (!fields.length) {
+          profileStatus.textContent = 'Select at least one field to generate.';
+          profileStatus.className = 'status error';
+          return;
+        }
+        const usedValues = { sin: new Set(), firstName: new Set(), middleName: new Set(), lastName: new Set(), email: new Set(), address: new Set(), phone: new Set(), dob: new Set() };
+        const genderAssignments = createGenderAssignments(count);
+        generatedProfiles = genderAssignments.map((selectedGender) => generateProfile(usedValues, selectedGender));
+        csvDownloaded = false;
+        renderProfiles(fields);
+        profileResults.scrollIntoView({
+          behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+          block: 'start'
+        });
+        profileCopyAllButton.disabled = false;
+        downloadCsvButton.hidden = count <= 1;
+        profileStatus.textContent = `${count} test profile${count === 1 ? '' : 's'} generated.`;
+        profileStatus.className = 'status success';
       });
 
-      document.querySelector('#copy-address').addEventListener('click', async () => {
-        const text = generatedAddress.textContent;
-        if (!text || text.startsWith('Select a province')) return;
+      profileResults.addEventListener('click', (event) => {
+        const fieldRow = event.target.closest('[data-profile-field]');
+        if (fieldRow && !event.target.closest('button')) {
+          try {
+            const profile = generatedProfiles[Number(fieldRow.dataset.profileIndex)];
+            const fields = selectedProfileFields();
+            if (!profile || !copyText(profileFieldValue(profile, fieldRow.dataset.profileField, fields))) throw new Error('Copy failed');
+            profileStatus.textContent = `${fieldRow.dataset.profileField.toUpperCase()} copied to clipboard.`;
+            profileStatus.className = 'status copy-success';
+          } catch {
+            profileStatus.textContent = 'Copy is unavailable in this browser.';
+            profileStatus.className = 'status error';
+          }
+          return;
+        }
+        const button = event.target.closest('[data-profile-index]');
+        if (!button) return;
         try {
-          if (!copyText(text)) throw new Error('Copy failed');
-          addressStatus.textContent = 'Address copied to clipboard.';
-          addressStatus.className = 'status success';
+          const fields = selectedProfileFields();
+          if (!copyText(profileText(generatedProfiles[Number(button.dataset.profileIndex)], fields))) throw new Error('Copy failed');
+          profileStatus.textContent = 'Profile copied to clipboard.';
+          profileStatus.className = 'status copy-success';
         } catch {
-          addressStatus.textContent = 'Copy is unavailable in this browser.';
-          addressStatus.className = 'status error';
+          profileStatus.textContent = 'Copy is unavailable in this browser.';
+          profileStatus.className = 'status error';
         }
       });
 
-      document.querySelector('#copy-phone').addEventListener('click', async () => {
-        const text = generatedPhone.textContent;
-        if (!text || text.startsWith('(---)')) return;
+      profileResults.addEventListener('keydown', (event) => {
+        const fieldRow = event.target.closest('[data-profile-field]');
+        if (!fieldRow || (event.key !== 'Enter' && event.key !== ' ')) return;
+        event.preventDefault();
+        fieldRow.click();
+      });
+
+      profileCopyAllButton.addEventListener('click', () => {
         try {
-          if (!copyText(text)) throw new Error('Copy failed');
-          addressStatus.textContent = 'Phone number copied to clipboard.';
-          addressStatus.className = 'status success';
+          const fields = selectedProfileFields();
+          if (!generatedProfiles.length || !copyText(generatedProfiles.map((profile) => profileText(profile, fields)).join('\n\n'))) throw new Error('Copy failed');
+          profileStatus.textContent = 'Profiles copied to clipboard.';
+          profileStatus.className = 'status copy-success';
         } catch {
-          addressStatus.textContent = 'Copy is unavailable in this browser.';
-          addressStatus.className = 'status error';
+          profileStatus.textContent = 'Copy is unavailable in this browser.';
+          profileStatus.className = 'status error';
         }
       });
 
-      clearAddressButton.addEventListener('click', () => {
-        generatedAddress.textContent = 'Select a province and city, then generate.';
-        generatedPhone.textContent = '(---) --- ----';
-        addressStatus.textContent = '';
-        addressStatus.className = 'status';
+      downloadCsvButton.addEventListener('click', downloadProfilesCsv);
+
+      document.querySelector('#clear-profiles').addEventListener('click', () => {
+        generatedProfiles = [];
+        csvDownloaded = false;
+        profileResults.innerHTML = '<p class="empty-state">Choose your fields and generate a profile to see results here.</p>';
+        profileCopyAllButton.disabled = true;
+        downloadCsvButton.hidden = true;
+        profileStatus.textContent = '';
+        profileStatus.className = 'status';
       });
+
     </script>
   </body>
   </html>
