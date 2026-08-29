@@ -922,7 +922,11 @@
       let csvDownloaded = false;
 
       const POSTAL_LETTERS = 'ABCEGHJKLMNPRSTVWXYZ';
-      const STREET_NAMES = ['Maple', 'Oak', 'Cedar', 'Birch', 'Elm', 'King', 'Queen', 'Victoria', 'Bay', 'Yonge', 'Bloor', 'College', 'Church', 'Front', 'Main', 'Pine', 'Willow', 'Spruce', 'River', 'Lake'];
+      const STREET_NAMES = [
+        'Maple', 'Oak', 'Cedar', 'Birch', 'Elm', 'King', 'Queen', 'Victoria',
+        'Bay', 'Yonge', 'Bloor', 'College', 'Church', 'Front', 'Main',
+        'Pine', 'Willow', 'Spruce', 'River', 'Lake'
+      ];
       const STREET_TYPES = ['Street', 'Avenue', 'Road', 'Boulevard', 'Drive', 'Crescent', 'Court', 'Way', 'Lane', 'Trail'];
 
       // Ontario/Toronto stay first so they remain the default selection.
@@ -1120,11 +1124,23 @@
         profileStatus.className = type ? `status ${type}` : 'status';
       }
 
-      const PROFILE_FIRST_NAMES = ['Alex', 'Jordan', 'Taylor', 'Riley', 'Casey', 'Avery', 'Morgan', 'Sam', 'Jamie', 'Cameron', 'Drew', 'Quinn'];
-      const PROFILE_MIDDLE_NAMES = ['James', 'Marie', 'Michael', 'Rose', 'David', 'Anne', 'Robert', 'Grace', 'Daniel', 'Louise', 'Thomas', 'Elizabeth'];
+      const PROFILE_FIRST_NAMES = [
+        'Alex', 'Jordan', 'Taylor', 'Riley', 'Casey', 'Avery',
+        'Morgan', 'Sam', 'Jamie', 'Cameron', 'Drew', 'Quinn'
+      ];
+      const PROFILE_MIDDLE_NAMES = [
+        'James', 'Marie', 'Michael', 'Rose', 'David', 'Anne',
+        'Robert', 'Grace', 'Daniel', 'Louise', 'Thomas', 'Elizabeth'
+      ];
       const PROFILE_GENDER_NAMES = {
-        female: { first: ['Ava', 'Emma', 'Olivia', 'Sophia', 'Mia', 'Charlotte', 'Amelia', 'Isla', 'Ella', 'Grace', 'Lily', 'Chloe'], middle: ['Marie', 'Rose', 'Anne', 'Grace', 'Louise', 'Claire', 'Jane', 'Elizabeth', 'Hope', 'Faith', 'Nicole', 'Renee'] },
-        male: { first: ['Liam', 'Noah', 'Oliver', 'William', 'Benjamin', 'Lucas', 'Henry', 'James', 'Theodore', 'Jack', 'Leo', 'Daniel'], middle: ['James', 'Michael', 'David', 'Robert', 'Daniel', 'Thomas', 'Joseph', 'Andrew', 'Charles', 'Edward', 'Matthew', 'John'] },
+        female: {
+          first: ['Ava', 'Emma', 'Olivia', 'Sophia', 'Mia', 'Charlotte', 'Amelia', 'Isla', 'Ella', 'Grace', 'Lily', 'Chloe'],
+          middle: ['Marie', 'Rose', 'Anne', 'Grace', 'Louise', 'Claire', 'Jane', 'Elizabeth', 'Hope', 'Faith', 'Nicole', 'Renee']
+        },
+        male: {
+          first: ['Liam', 'Noah', 'Oliver', 'William', 'Benjamin', 'Lucas', 'Henry', 'James', 'Theodore', 'Jack', 'Leo', 'Daniel'],
+          middle: ['James', 'Michael', 'David', 'Robert', 'Daniel', 'Thomas', 'Joseph', 'Andrew', 'Charles', 'Edward', 'Matthew', 'John']
+        },
       };
 
       function updateGenderRatio() {
@@ -1135,7 +1151,10 @@
 
       updateGenderRatio();
       genderRatio.addEventListener('input', updateGenderRatio);
-      const PROFILE_LAST_NAMES = ['Morgan', 'Lee', 'Smith', 'Chen', 'Martin', 'Patel', 'Brown', 'Wilson', 'Garcia', 'Singh', 'Nguyen', 'Clark'];
+      const PROFILE_LAST_NAMES = [
+        'Morgan', 'Lee', 'Smith', 'Chen', 'Martin', 'Patel',
+        'Brown', 'Wilson', 'Garcia', 'Singh', 'Nguyen', 'Clark'
+      ];
       const PROFILE_STREETS = ['Maple Street', 'Cedar Avenue', 'King Road', 'Victoria Drive', 'Lake Crescent', 'Pine Lane'];
       function uniqueValue(usedValues, createValue) {
         let value;
@@ -1168,7 +1187,9 @@
         const lastName = uniqueValue(usedValues.lastName, () => pickRandom(PROFILE_LAST_NAMES));
         const address = uniqueValue(usedValues.address, () => {
           const unit = addressUnit.checked ? `Unit ${1 + Math.floor(Math.random() * 300)} - ` : '';
-          return `${unit}${1 + Math.floor(Math.random() * 998)} ${pickRandom(PROFILE_STREETS)}, ${cityName}, ${profileProvince.value} ${generatePostalCode(city.postalPrefixes)}`;
+          const streetNumber = 1 + Math.floor(Math.random() * 998);
+          const postalCode = generatePostalCode(city.postalPrefixes);
+          return `${unit}${streetNumber} ${pickRandom(PROFILE_STREETS)}, ${cityName}, ${profileProvince.value} ${postalCode}`;
         });
         const dob = uniqueValue(usedValues.dob, () => {
           const birthYear = 1955 + Math.floor(Math.random() * 48);
@@ -1277,7 +1298,18 @@
       function downloadProfilesCsv() {
         if (csvDownloaded && !window.confirm('This CSV was already downloaded. Do you want to download it again?')) return;
         const fields = exportFields(selectedProfileFields());
-        const labels = { sin: 'SIN', gender: 'Gender', fullName: 'Full Name', firstName: 'First Name', middleName: 'Middle Name', lastName: 'Last Name', email: 'Email', address: 'Address', phone: 'Phone Number', dob: 'DOB' };
+        const labels = {
+          sin: 'SIN',
+          gender: 'Gender',
+          fullName: 'Full Name',
+          firstName: 'First Name',
+          middleName: 'Middle Name',
+          lastName: 'Last Name',
+          email: 'Email',
+          address: 'Address',
+          phone: 'Phone Number',
+          dob: 'DOB'
+        };
         const rows = [fields.map((field) => labels[field] || field.toUpperCase())];
         generatedProfiles.forEach((profile) => {
           rows.push(fields.map((field) => profileFieldValue(profile, field, fields)));
@@ -1317,10 +1349,19 @@
             });
           } else {
             const name = formatProfileName(profile, fields);
-            const labels = { gender: 'GENDER', fullName: 'FULL NAME', firstName: 'FIRST NAME', middleName: 'MIDDLE NAME', lastName: 'LAST NAME', dob: 'DOB' };
+            const labels = {
+              gender: 'GENDER',
+              fullName: 'FULL NAME',
+              firstName: 'FIRST NAME',
+              middleName: 'MIDDLE NAME',
+              lastName: 'LAST NAME',
+              dob: 'DOB'
+            };
             const selectedFields = fields.includes('fullName')
               ? displayProfileFields(fields)
-              : (name ? ['name', ...fields.filter((field) => !['firstName', 'middleName', 'lastName'].includes(field))] : fields);
+              : (name
+                  ? ['name', ...fields.filter((field) => !['firstName', 'middleName', 'lastName'].includes(field))]
+                  : fields);
             selectedFields.forEach((field) => {
               const line = document.createElement('p');
               const label = document.createElement('strong');
@@ -1352,7 +1393,8 @@
       }
 
       generateProfilesButton.addEventListener('click', () => {
-        if (generatedProfiles.length > 1 && !window.confirm('Test profiles already exist. Do you want to generate new profiles and replace them?')) {
+        if (generatedProfiles.length > 1
+          && !window.confirm('Test profiles already exist. Do you want to generate new profiles and replace them?')) {
           return;
         }
         const count = Number(profileCount.value);
