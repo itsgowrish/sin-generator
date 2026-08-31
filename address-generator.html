@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Generate a fake Canadian mailing address and matching phone number.">
-    <title>Address & Phone Generator | Fake Canadian Data</title>
+    <meta name="description" content="Generate realistic Canadian test profiles with fake addresses, phone numbers, names, and more.">
+    <title>Canadian Test Data Generator | Fake Profile Data</title>
     <style>
       :root {
         --ink: #17242b;
@@ -841,7 +841,7 @@
         </div>
         <div class="batch-settings">
           <div>
-            <label for="profile-count">How many profiles? (1-100)</label>
+            <label for="profile-count">How many profiles would you like to generate? (1-100)</label>
             <input id="profile-count" type="number" min="1" max="100" value="1" inputmode="numeric">
           </div>
         </div>
@@ -888,7 +888,7 @@
         </div>
       </section>
 
-      <footer><span>Developer: Gowrisankar Chandrasekaran</span><span>Local-only tool · No numbers are stored or transmitted</span></footer>
+      <footer><span>Developer: Gowrisankar Chandrasekaran</span><span>Local-only tool · No data is stored or transmitted</span></footer>
     </main>
 
     <script>
@@ -918,6 +918,19 @@
         'sin', 'fullName', 'firstName', 'middleName', 'lastName',
         'gender', 'dob', 'email', 'phone', 'address'
       ];
+      const FIELD_LABELS = {
+        sin: 'SIN',
+        gender: 'Gender',
+        fullName: 'FULL NAME',
+        name: 'NAME',
+        firstName: 'FIRST NAME',
+        middleName: 'MIDDLE NAME',
+        lastName: 'LAST NAME',
+        email: 'Email',
+        address: 'Address',
+        phone: 'Phone Number',
+        dob: 'DOB'
+      };
       let generatedProfiles = [];
       let csvDownloaded = false;
 
@@ -1155,7 +1168,7 @@
         'Morgan', 'Lee', 'Smith', 'Chen', 'Martin', 'Patel',
         'Brown', 'Wilson', 'Garcia', 'Singh', 'Nguyen', 'Clark'
       ];
-      const PROFILE_STREETS = ['Maple Street', 'Cedar Avenue', 'King Road', 'Victoria Drive', 'Lake Crescent', 'Pine Lane'];
+      const randomStreet = () => `${pickRandom(STREET_NAMES)} ${pickRandom(STREET_TYPES)}`;
       function uniqueValue(usedValues, createValue) {
         let value;
         do value = createValue(); while (usedValues.has(value));
@@ -1189,7 +1202,7 @@
           const unit = addressUnit.checked ? `Unit ${1 + Math.floor(Math.random() * 300)} - ` : '';
           const streetNumber = 1 + Math.floor(Math.random() * 998);
           const postalCode = generatePostalCode(city.postalPrefixes);
-          return `${unit}${streetNumber} ${pickRandom(PROFILE_STREETS)}, ${cityName}, ${profileProvince.value} ${postalCode}`;
+          return `${unit}${streetNumber} ${randomStreet()}, ${cityName}, ${profileProvince.value} ${postalCode}`;
         });
         const dob = uniqueValue(usedValues.dob, () => {
           const birthYear = 1955 + Math.floor(Math.random() * 48);
@@ -1265,21 +1278,9 @@
         if (fields.length === 2 && fields.includes('address') && fields.includes('phone')) {
           return `${profile.address}\n${profile.phone}`;
         }
-        const labels = {
-          gender: 'GENDER',
-          fullName: 'FULL NAME',
-          firstName: 'FIRST NAME',
-          middleName: 'MIDDLE NAME',
-          lastName: 'LAST NAME',
-          dob: 'DOB'
-        };
         const name = formatProfileName(profile, fields);
         const displayFields = displayProfileFields(fields);
-        const labelFor = (field) => (
-          field === 'fullName' ? 'FULL NAME'
-            : field === 'name' ? 'NAME'
-              : labels[field] || field.toUpperCase()
-        );
+        const labelFor = (field) => FIELD_LABELS[field] || field.toUpperCase();
         const valueFor = (field) => (field === 'fullName' || field === 'name' ? name : profile[field]);
         return displayFields.map((field) => `${labelFor(field)}: ${valueFor(field)}`).join('\n');
       }
@@ -1295,22 +1296,19 @@
         return /[",\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
       }
 
+      async function handleProfileCopy(text, successMessage) {
+        try {
+          if (!(await copyText(text))) throw new Error('Copy failed');
+          showStatus(successMessage, 'copy-success');
+        } catch {
+          showStatus('Copy is unavailable in this browser.', 'error');
+        }
+      }
+
       function downloadProfilesCsv() {
         if (csvDownloaded && !window.confirm('This CSV was already downloaded. Do you want to download it again?')) return;
         const fields = exportFields(selectedProfileFields());
-        const labels = {
-          sin: 'SIN',
-          gender: 'Gender',
-          fullName: 'Full Name',
-          firstName: 'First Name',
-          middleName: 'Middle Name',
-          lastName: 'Last Name',
-          email: 'Email',
-          address: 'Address',
-          phone: 'Phone Number',
-          dob: 'DOB'
-        };
-        const rows = [fields.map((field) => labels[field] || field.toUpperCase())];
+        const rows = [fields.map((field) => FIELD_LABELS[field] || field.toUpperCase())];
         generatedProfiles.forEach((profile) => {
           rows.push(fields.map((field) => profileFieldValue(profile, field, fields)));
         });
@@ -1349,14 +1347,6 @@
             });
           } else {
             const name = formatProfileName(profile, fields);
-            const labels = {
-              gender: 'GENDER',
-              fullName: 'FULL NAME',
-              firstName: 'FIRST NAME',
-              middleName: 'MIDDLE NAME',
-              lastName: 'LAST NAME',
-              dob: 'DOB'
-            };
             const selectedFields = fields.includes('fullName')
               ? displayProfileFields(fields)
               : (name
@@ -1365,14 +1355,15 @@
             selectedFields.forEach((field) => {
               const line = document.createElement('p');
               const label = document.createElement('strong');
-              label.textContent = `${field === 'name' ? 'NAME' : labels[field] || field.toUpperCase()}:`;
+              label.textContent = `${FIELD_LABELS[field] || field.toUpperCase()}:`;
               line.className = 'profile-field-row';
               line.dataset.profileIndex = index;
               line.dataset.profileField = field;
               line.setAttribute('role', 'button');
               line.tabIndex = 0;
-              line.setAttribute('aria-label', `Copy ${field === 'name' || field === 'fullName' ? 'full name' : field} for profile ${index + 1}`);
-              line.title = `Click to copy ${field === 'name' || field === 'fullName' ? 'full name' : field}`;
+              const displayName = field === 'name' || field === 'fullName' ? 'full name' : field;
+              line.setAttribute('aria-label', `Copy ${displayName} for profile ${index + 1}`);
+              line.title = `Click to copy ${displayName}`;
               const valueText = document.createElement('span');
               valueText.className = 'field-value';
               valueText.textContent = ` ${profileFieldDisplayValue(profile, field, fields)}`;
@@ -1430,32 +1421,26 @@
         showStatus(`${count} test profile${count === 1 ? '' : 's'} generated.`, 'success');
       });
 
-      profileResults.addEventListener('click', async (event) => {
+      profileResults.addEventListener('click', (event) => {
         const fieldRow = event.target.closest('[data-profile-field]');
         if (fieldRow && !event.target.closest('button')) {
-          try {
-            const profile = generatedProfiles[Number(fieldRow.dataset.profileIndex)];
-            const fields = selectedProfileFields();
-            if (!profile || !(await copyText(profileFieldValue(profile, fieldRow.dataset.profileField, fields)))) {
-              throw new Error('Copy failed');
-            }
-            showStatus(`${fieldRow.dataset.profileField.toUpperCase()} copied to clipboard.`, 'copy-success');
-          } catch {
-            showStatus('Copy is unavailable in this browser.', 'error');
+          const profile = generatedProfiles[Number(fieldRow.dataset.profileIndex)];
+          const fields = selectedProfileFields();
+          if (profile) {
+            handleProfileCopy(
+              profileFieldValue(profile, fieldRow.dataset.profileField, fields),
+              `${fieldRow.dataset.profileField.toUpperCase()} copied to clipboard.`
+            );
           }
           return;
         }
         const button = event.target.closest('[data-profile-index]');
         if (!button) return;
-        try {
-          const fields = selectedProfileFields();
-          if (!(await copyText(profileText(generatedProfiles[Number(button.dataset.profileIndex)], fields)))) {
-            throw new Error('Copy failed');
-          }
-          showStatus('Profile copied to clipboard.', 'copy-success');
-        } catch {
-          showStatus('Copy is unavailable in this browser.', 'error');
-        }
+        const fields = selectedProfileFields();
+        handleProfileCopy(
+          profileText(generatedProfiles[Number(button.dataset.profileIndex)], fields),
+          'Profile copied to clipboard.'
+        );
       });
 
       profileResults.addEventListener('keydown', (event) => {
@@ -1465,15 +1450,11 @@
         fieldRow.click();
       });
 
-      profileCopyAllButton.addEventListener('click', async () => {
-        try {
-          const fields = selectedProfileFields();
-          const allText = generatedProfiles.map((profile) => profileText(profile, fields)).join('\n\n');
-          if (!generatedProfiles.length || !(await copyText(allText))) throw new Error('Copy failed');
-          showStatus('Profiles copied to clipboard.', 'copy-success');
-        } catch {
-          showStatus('Copy is unavailable in this browser.', 'error');
-        }
+      profileCopyAllButton.addEventListener('click', () => {
+        if (!generatedProfiles.length) return;
+        const fields = selectedProfileFields();
+        const allText = generatedProfiles.map((profile) => profileText(profile, fields)).join('\n\n');
+        handleProfileCopy(allText, 'Profiles copied to clipboard.');
       });
 
       downloadCsvButton.addEventListener('click', downloadProfilesCsv);
