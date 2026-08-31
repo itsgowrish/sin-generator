@@ -1,24 +1,27 @@
-  <!doctype html>
-  <html lang="en">
+<!doctype html>
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Generate realistic Canadian test profiles with fake addresses, phone numbers, names, and more.">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Generate realistic Canadian test profiles with fake addresses, phone numbers, names, and more."
+    />
     <title>Canadian Test Data Generator | Fake Profile Data</title>
     <style>
       :root {
         --ink: #17242b;
         --muted: #657478;
         --paper: #f1eee7;
-        --panel: rgba(255, 253, 248, .92);
+        --panel: rgba(255, 253, 248, 0.92);
         --line: #d4dcd7;
         --teal: #087f76;
         --teal-dark: #075e59;
         --coral: #dd684f;
         --valid: #14734f;
         --invalid: #b63f37;
-        --shadow: 0 25px 70px rgba(30, 56, 54, .13);
-        --soft-shadow: 0 8px 20px rgba(30, 56, 54, .08);
+        --shadow: 0 25px 70px rgba(30, 56, 54, 0.13);
+        --soft-shadow: 0 8px 20px rgba(30, 56, 54, 0.08);
       }
 
       * {
@@ -30,20 +33,39 @@
         min-height: 100vh;
         color: var(--ink);
         background: var(--paper);
-        font-family: Georgia, 'Times New Roman', serif;
+        font-family: Georgia, "Times New Roman", serif;
         overflow-x: hidden;
         padding-bottom: 82px;
       }
 
       body::before {
-        content: '';
+        content: "";
         position: fixed;
         z-index: -1;
         inset: 0;
-        background: radial-gradient(circle at 8% 8%, rgba(221, 104, 79, 0.22), transparent 22rem),
-                    radial-gradient(circle at 90% 84%, rgba(8, 127, 118, 0.14), transparent 26rem),
-                    linear-gradient(120deg, transparent 62%, rgba(8, 127, 118, 0.07) 62%, rgba(8, 127, 118, 0.07) 63%, transparent 63%),
-                    repeating-linear-gradient(0deg, rgba(23, 36, 43, 0.018) 0 1px, transparent 1px 5px);
+        background:
+          radial-gradient(
+            circle at 8% 8%,
+            rgba(221, 104, 79, 0.22),
+            transparent 22rem
+          ),
+          radial-gradient(
+            circle at 90% 84%,
+            rgba(8, 127, 118, 0.14),
+            transparent 26rem
+          ),
+          linear-gradient(
+            120deg,
+            transparent 62%,
+            rgba(8, 127, 118, 0.07) 62%,
+            rgba(8, 127, 118, 0.07) 63%,
+            transparent 63%
+          ),
+          repeating-linear-gradient(
+            0deg,
+            rgba(23, 36, 43, 0.018) 0 1px,
+            transparent 1px 5px
+          );
         pointer-events: none;
       }
 
@@ -62,8 +84,12 @@
         animation: rise-in 0.65s ease both;
       }
 
-      .kicker, label, .eyebrow {
-        font: 700 13px/1.2 'Trebuchet MS', sans-serif;
+      .kicker,
+      label,
+      .eyebrow {
+        font:
+          700 13px/1.2 "Trebuchet MS",
+          sans-serif;
         letter-spacing: 0.14em;
         text-transform: uppercase;
       }
@@ -82,7 +108,9 @@
         max-width: 280px;
         margin: 0 0 4px;
         color: var(--muted);
-        font: 14px/1.6 'Trebuchet MS', sans-serif;
+        font:
+          14px/1.6 "Trebuchet MS",
+          sans-serif;
       }
 
       .panel {
@@ -109,30 +137,42 @@
         margin-bottom: 9px;
       }
 
-      select, input {
+      select,
+      input {
         width: 100%;
         border: 1px solid #bfcac6;
         border-radius: 3px;
         background: rgba(255, 255, 255, 0.8);
         color: var(--ink);
-        font: 18px Georgia, serif;
+        font:
+          18px Georgia,
+          serif;
         padding: 14px 13px;
         outline: none;
         box-shadow: inset 0 1px 2px rgba(23, 36, 43, 0.04);
       }
 
-      select:focus, input:focus {
+      select:focus,
+      input:focus {
         border-color: var(--teal);
-        box-shadow: 0 0 0 3px rgba(8, 127, 118, 0.14), inset 0 1px 2px rgba(23, 36, 43, 0.04);
+        box-shadow:
+          0 0 0 3px rgba(8, 127, 118, 0.14),
+          inset 0 1px 2px rgba(23, 36, 43, 0.04);
       }
+
       button {
         border: 0;
         border-radius: 3px;
         cursor: pointer;
-        font: 700 12px 'Trebuchet MS', sans-serif;
+        font:
+          700 12px "Trebuchet MS",
+          sans-serif;
         letter-spacing: 0.08em;
         text-transform: uppercase;
-        transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+        transition:
+          transform 0.15s ease,
+          background 0.15s ease,
+          box-shadow 0.15s ease;
       }
 
       button:hover {
@@ -209,7 +249,9 @@
         border-radius: 3px;
         color: var(--teal-dark);
         background: rgba(244, 248, 244, 0.85);
-        font: 16px 'Trebuchet MS', sans-serif;
+        font:
+          16px "Trebuchet MS",
+          sans-serif;
         letter-spacing: 0.04em;
         box-shadow: 0 2px 5px rgba(30, 56, 54, 0.04);
       }
@@ -270,7 +312,9 @@
 
       .profile-fieldset legend {
         color: var(--muted);
-        font: 700 13px/1.2 'Trebuchet MS', sans-serif;
+        font:
+          700 13px/1.2 "Trebuchet MS",
+          sans-serif;
         letter-spacing: 0.14em;
         text-transform: uppercase;
       }
@@ -298,7 +342,9 @@
         border-radius: 3px;
         color: var(--ink);
         background: rgba(244, 248, 244, 0.7);
-        font: 14px 'Trebuchet MS', sans-serif;
+        font:
+          14px "Trebuchet MS",
+          sans-serif;
         letter-spacing: 0;
         text-transform: none;
       }
@@ -367,6 +413,7 @@
       .profile-location[hidden] {
         display: none;
       }
+
       .gender-settings {
         margin-top: 18px;
       }
@@ -389,7 +436,9 @@
         width: 50%;
         margin-top: 5px;
         color: var(--ink);
-        font: 13px 'Trebuchet MS', sans-serif;
+        font:
+          13px "Trebuchet MS",
+          sans-serif;
       }
 
       .gender-ratio-values strong {
@@ -415,7 +464,9 @@
         border: 1px solid var(--line);
         border-radius: 3px;
         background: rgba(244, 248, 244, 0.7);
-        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        transition:
+          border-color 0.15s ease,
+          box-shadow 0.15s ease;
       }
 
       .profile-card:hover {
@@ -430,7 +481,9 @@
         align-self: start;
         transform: translateY(4px);
         color: var(--teal-dark);
-        font: 16px 'Trebuchet MS', sans-serif;
+        font:
+          16px "Trebuchet MS",
+          sans-serif;
       }
 
       .profile-card.address-format {
@@ -446,7 +499,9 @@
         grid-column: 2;
         margin: 4px 0;
         color: var(--ink);
-        font: 14px/1.45 'Trebuchet MS', sans-serif;
+        font:
+          14px/1.45 "Trebuchet MS",
+          sans-serif;
       }
 
       .profile-card .profile-address-result {
@@ -463,7 +518,10 @@
         border: 1px solid transparent;
         border-radius: 3px;
         cursor: copy;
-        transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+        transition:
+          color 0.15s ease,
+          background 0.15s ease,
+          border-color 0.15s ease;
       }
 
       .profile-field-row .field-value {
@@ -548,15 +606,20 @@
         border: 1px dashed var(--line);
         color: var(--muted);
         background: rgba(244, 248, 244, 0.45);
-        font: 14px 'Trebuchet MS', sans-serif;
+        font:
+          14px "Trebuchet MS",
+          sans-serif;
         text-align: center;
       }
 
       .selection-summary {
         margin: 12px 0 0;
         color: var(--muted);
-        font: 12px/1.4 'Trebuchet MS', sans-serif;
+        font:
+          12px/1.4 "Trebuchet MS",
+          sans-serif;
       }
+
       .copy-hint {
         display: flex;
         flex-wrap: wrap;
@@ -566,7 +629,9 @@
         border-left: 4px solid var(--coral);
         color: var(--teal-dark);
         background: rgba(255, 240, 237, 0.86);
-        font: 15px/1.5 'Trebuchet MS', sans-serif;
+        font:
+          15px/1.5 "Trebuchet MS",
+          sans-serif;
       }
 
       .copy-hint strong {
@@ -599,14 +664,19 @@
       .user-guide h3 {
         margin: 0 0 9px;
         color: var(--coral);
-        font: 700 14px/1.3 'Trebuchet MS', sans-serif;
+        font:
+          700 14px/1.3 "Trebuchet MS",
+          sans-serif;
       }
 
-      .user-guide ol, .user-guide ul {
+      .user-guide ol,
+      .user-guide ul {
         margin: 0;
         padding-left: 21px;
         color: var(--ink);
-        font: 14px/1.6 'Trebuchet MS', sans-serif;
+        font:
+          14px/1.6 "Trebuchet MS",
+          sans-serif;
       }
 
       .user-guide li + li {
@@ -617,7 +687,9 @@
         margin: 18px 0 0;
         padding-left: 22px;
         color: var(--ink);
-        font: 14px/1.65 'Trebuchet MS', sans-serif;
+        font:
+          14px/1.65 "Trebuchet MS",
+          sans-serif;
       }
 
       .address-steps li + li {
@@ -630,7 +702,9 @@
         gap: 8px;
         margin: 12px 0 0;
         color: var(--muted);
-        font: 13px 'Trebuchet MS', sans-serif;
+        font:
+          13px "Trebuchet MS",
+          sans-serif;
         letter-spacing: 0;
         text-transform: none;
       }
@@ -646,7 +720,9 @@
         min-height: 25px;
         margin: 17px 0 0;
         color: var(--muted);
-        font: 16px/1.4 'Trebuchet MS', sans-serif;
+        font:
+          16px/1.4 "Trebuchet MS",
+          sans-serif;
         font-weight: 700;
       }
 
@@ -665,7 +741,9 @@
       .guide-note {
         margin: 12px 0 0;
         color: var(--muted);
-        font: 13px/1.55 'Trebuchet MS', sans-serif;
+        font:
+          13px/1.55 "Trebuchet MS",
+          sans-serif;
       }
 
       footer {
@@ -682,7 +760,9 @@
         border-top: 1px solid rgba(212, 220, 215, 0.95);
         color: var(--muted);
         background: rgba(255, 252, 249, 0.94);
-        font: 11px 'Trebuchet MS', sans-serif;
+        font:
+          11px "Trebuchet MS",
+          sans-serif;
         box-shadow: 0 -8px 24px rgba(73, 91, 91, 0.08);
         backdrop-filter: blur(10px);
       }
@@ -719,6 +799,7 @@
           transition-duration: 0.01ms !important;
         }
       }
+
       @media (max-width: 720px) {
         .shell {
           width: min(100% - 28px, 560px);
@@ -775,7 +856,10 @@
         <div>
           <h1>Canadian Test Data Generator</h1>
         </div>
-        <p class="intro">Build realistic, unique Canadian test profiles locally, with no data stored or transmitted.</p>
+        <p class="intro">
+          Build realistic, unique Canadian test profiles locally, with no data
+          stored or transmitted.
+        </p>
       </header>
 
       <section class="panel profile-generator" aria-labelledby="profile-title">
@@ -783,19 +867,96 @@
         <h2 id="profile-title">Generate test data</h2>
         <fieldset class="profile-fieldset">
           <legend>Fields to generate</legend>
-          <div class="profile-fields" role="group" aria-label="Profile fields to generate">
-          <label class="profile-field"><input type="checkbox" name="profile-field" value="sin" checked> SIN</label>
-          <label class="profile-field"><input type="checkbox" name="profile-field" value="fullName" checked> Full name</label>
-          <span class="name-options" id="name-options">
-            <label class="profile-field"><input type="checkbox" name="profile-field" value="firstName"> First name</label>
-            <label class="profile-field"><input type="checkbox" name="profile-field" value="middleName"> Middle name</label>
-            <label class="profile-field"><input type="checkbox" name="profile-field" value="lastName"> Last name</label>
-          </span>
-          <label class="profile-field"><input type="checkbox" name="profile-field" value="gender" checked> Gender</label>
-          <label class="profile-field"><input type="checkbox" name="profile-field" value="dob" checked> Date of birth</label>
-          <label class="profile-field"><input type="checkbox" name="profile-field" value="email" checked> Email</label>
-          <label class="profile-field"><input type="checkbox" name="profile-field" value="phone" checked> Phone number</label>
-          <label class="profile-field"><input type="checkbox" name="profile-field" value="address" checked> Address</label>
+          <div
+            class="profile-fields"
+            role="group"
+            aria-label="Profile fields to generate"
+          >
+            <label class="profile-field"
+              ><input
+                type="checkbox"
+                name="profile-field"
+                value="sin"
+                checked
+              />
+              SIN</label
+            >
+            <label class="profile-field"
+              ><input
+                type="checkbox"
+                name="profile-field"
+                value="fullName"
+                checked
+              />
+              Full name</label
+            >
+            <span class="name-options" id="name-options">
+              <label class="profile-field"
+                ><input
+                  type="checkbox"
+                  name="profile-field"
+                  value="firstName"
+                />
+                First name</label
+              >
+              <label class="profile-field"
+                ><input
+                  type="checkbox"
+                  name="profile-field"
+                  value="middleName"
+                />
+                Middle name</label
+              >
+              <label class="profile-field"
+                ><input type="checkbox" name="profile-field" value="lastName" />
+                Last name</label
+              >
+            </span>
+            <label class="profile-field"
+              ><input
+                type="checkbox"
+                name="profile-field"
+                value="gender"
+                checked
+              />
+              Gender</label
+            >
+            <label class="profile-field"
+              ><input
+                type="checkbox"
+                name="profile-field"
+                value="dob"
+                checked
+              />
+              Date of birth</label
+            >
+            <label class="profile-field"
+              ><input
+                type="checkbox"
+                name="profile-field"
+                value="email"
+                checked
+              />
+              Email</label
+            >
+            <label class="profile-field"
+              ><input
+                type="checkbox"
+                name="profile-field"
+                value="phone"
+                checked
+              />
+              Phone number</label
+            >
+            <label class="profile-field"
+              ><input
+                type="checkbox"
+                name="profile-field"
+                value="address"
+                checked
+              />
+              Address</label
+            >
           </div>
         </fieldset>
         <div class="profile-location" id="profile-location">
@@ -825,35 +986,92 @@
           </div>
         </div>
         <div class="profile-options">
-          <label class="hyphen-toggle" id="address-unit-option"><input id="address-unit" type="checkbox"> Include unit number</label>
-          <label class="hyphen-toggle select-all-field"><input id="select-all-fields" type="checkbox"> Select all fields</label>
+          <label class="hyphen-toggle" id="address-unit-option"
+            ><input id="address-unit" type="checkbox" /> Include unit
+            number</label
+          >
+          <label class="hyphen-toggle select-all-field"
+            ><input id="select-all-fields" type="checkbox" /> Select all
+            fields</label
+          >
         </div>
         <div class="gender-settings">
           <div class="gender-ratio">
             <label for="gender-ratio">Gender ratio</label>
-            <input id="gender-ratio" type="range" min="0" max="100" value="50" aria-describedby="gender-ratio-help">
+            <input
+              id="gender-ratio"
+              type="range"
+              min="0"
+              max="100"
+              value="50"
+              aria-describedby="gender-ratio-help"
+            />
             <div class="gender-ratio-values" aria-live="polite">
               <span>Male: <strong id="male-ratio">50%</strong></span>
               <span>Female: <strong id="female-ratio">50%</strong></span>
             </div>
-            <p class="guide-note" id="gender-ratio-help">Names are generated according to this Male/Female ratio.</p>
+            <p class="guide-note" id="gender-ratio-help">
+              Names are generated according to this Male/Female ratio.
+            </p>
           </div>
         </div>
         <div class="batch-settings">
           <div>
-            <label for="profile-count">How many profiles would you like to generate? (1-100)</label>
-            <input id="profile-count" type="number" min="1" max="100" value="1" inputmode="numeric">
+            <label for="profile-count"
+              >How many profiles would you like to generate? (1-100)</label
+            >
+            <input
+              id="profile-count"
+              type="number"
+              min="1"
+              max="100"
+              value="1"
+              inputmode="numeric"
+            />
           </div>
         </div>
-        <button class="primary batch-button" id="generate-profiles" type="button">Generate test data</button>
-        <button class="profile-copy-all" id="profile-copy-all" type="button" disabled>Copy all profiles</button>
-        <button class="download-csv" id="download-csv" type="button" hidden>Download CSV</button>
-        <button class="clear-button" id="clear-profiles" type="button">Clear search results</button>
+        <button
+          class="primary batch-button"
+          id="generate-profiles"
+          type="button"
+        >
+          Generate test data
+        </button>
+        <button
+          class="profile-copy-all"
+          id="profile-copy-all"
+          type="button"
+          disabled
+        >
+          Copy all profiles
+        </button>
+        <button class="download-csv" id="download-csv" type="button" hidden>
+          Download CSV
+        </button>
+        <button class="clear-button" id="clear-profiles" type="button">
+          Clear search results
+        </button>
         <p class="status" id="profile-status" aria-live="polite"></p>
-        <p class="selection-summary" id="selection-summary" aria-live="polite"></p>
-        <p class="copy-hint"><strong>Click any generated field to copy its value.</strong><span class="complete-profile-hint">Use Copy to copy the complete profile.</span></p>
-        <div class="profile-results" id="profile-results" aria-live="polite" aria-label="Generated profiles">
-          <p class="empty-state">Choose your fields and generate a profile to see results here.</p>
+        <p
+          class="selection-summary"
+          id="selection-summary"
+          aria-live="polite"
+        ></p>
+        <p class="copy-hint">
+          <strong>Click any generated field to copy its value.</strong
+          ><span class="complete-profile-hint"
+            >Use Copy to copy the complete profile.</span
+          >
+        </p>
+        <div
+          class="profile-results"
+          id="profile-results"
+          aria-live="polite"
+          aria-label="Generated profiles"
+        >
+          <p class="empty-state">
+            Choose your fields and generate a profile to see results here.
+          </p>
         </div>
       </section>
 
@@ -864,7 +1082,9 @@
             <h3>1. Choose Fields</h3>
             <ol>
               <li>Use Select All Fields, or choose individual fields.</li>
-              <li>Full Name reveals optional First, Middle, and Last Name fields.</li>
+              <li>
+                Full Name reveals optional First, Middle, and Last Name fields.
+              </li>
               <li>Address reveals Province, City, and Include Unit Number.</li>
             </ol>
           </div>
@@ -873,7 +1093,9 @@
             <ol>
               <li>Set the Male/Female ratio for generated names.</li>
               <li>Choose a profile count from 1 to 100.</li>
-              <li>Click Generate Test Data. Results are unique within the batch.</li>
+              <li>
+                Click Generate Test Data. Results are unique within the batch.
+              </li>
             </ol>
           </div>
           <div>
@@ -881,152 +1103,458 @@
             <ul>
               <li>Click any result field to copy just that value.</li>
               <li>Use Copy to copy one complete profile.</li>
-              <li>For multiple profiles, use Copy All Profiles or Download CSV.</li>
+              <li>
+                For multiple profiles, use Copy All Profiles or Download CSV.
+              </li>
               <li>Use Clear Search Results before starting over.</li>
             </ul>
           </div>
         </div>
       </section>
 
-      <footer><span>Developer: Gowrisankar Chandrasekaran</span><span>Local-only tool · No data is stored or transmitted</span></footer>
+      <footer>
+        <span>Developer: Gowrisankar Chandrasekaran</span
+        ><span>Local-only tool · No data is stored or transmitted</span>
+      </footer>
     </main>
 
     <script>
-      'use strict';
-      const addressUnit = document.querySelector('#address-unit');
-      const profileCount = document.querySelector('#profile-count');
-      const genderRatio = document.querySelector('#gender-ratio');
-      const maleRatio = document.querySelector('#male-ratio');
-      const femaleRatio = document.querySelector('#female-ratio');
-      const profileProvince = document.querySelector('#profile-province');
-      const profileCitySelect = document.querySelector('#profile-city');
-      const profileLocation = document.querySelector('#profile-location');
-      const addressUnitOption = document.querySelector('#address-unit-option');
-      const profileAddressField = document.querySelector('input[name="profile-field"][value="address"]');
-      const fullNameField = document.querySelector('input[name="profile-field"][value="fullName"]');
-      const nameOptions = document.querySelector('#name-options');
-      const profileFields = Array.from(document.querySelectorAll('input[name="profile-field"]'));
-      const selectAllFields = document.querySelector('#select-all-fields');
-      const profileResults = document.querySelector('#profile-results');
-      const profileStatus = document.querySelector('#profile-status');
-      const profileCopyAllButton = document.querySelector('#profile-copy-all');
-      const downloadCsvButton = document.querySelector('#download-csv');
-      const generateProfilesButton = document.querySelector('#generate-profiles');
-      const clearProfilesButton = document.querySelector('#clear-profiles');
-      const selectionSummary = document.querySelector('#selection-summary');
+      "use strict";
+      const addressUnit = document.querySelector("#address-unit");
+      const profileCount = document.querySelector("#profile-count");
+      const genderRatio = document.querySelector("#gender-ratio");
+      const maleRatio = document.querySelector("#male-ratio");
+      const femaleRatio = document.querySelector("#female-ratio");
+      const profileProvince = document.querySelector("#profile-province");
+      const profileCitySelect = document.querySelector("#profile-city");
+      const profileLocation = document.querySelector("#profile-location");
+      const addressUnitOption = document.querySelector("#address-unit-option");
+      const profileAddressField = document.querySelector(
+        'input[name="profile-field"][value="address"]',
+      );
+      const fullNameField = document.querySelector(
+        'input[name="profile-field"][value="fullName"]',
+      );
+      const nameOptions = document.querySelector("#name-options");
+      const profileFields = Array.from(
+        document.querySelectorAll('input[name="profile-field"]'),
+      );
+      const selectAllFields = document.querySelector("#select-all-fields");
+      const profileResults = document.querySelector("#profile-results");
+      const profileStatus = document.querySelector("#profile-status");
+      const profileCopyAllButton = document.querySelector("#profile-copy-all");
+      const downloadCsvButton = document.querySelector("#download-csv");
+      const generateProfilesButton =
+        document.querySelector("#generate-profiles");
+      const clearProfilesButton = document.querySelector("#clear-profiles");
+      const selectionSummary = document.querySelector("#selection-summary");
       const profileFieldOrder = [
-        'sin', 'fullName', 'firstName', 'middleName', 'lastName',
-        'gender', 'dob', 'email', 'phone', 'address'
+        "sin",
+        "fullName",
+        "firstName",
+        "middleName",
+        "lastName",
+        "gender",
+        "dob",
+        "email",
+        "phone",
+        "address",
       ];
       const FIELD_LABELS = {
-        sin: 'SIN',
-        gender: 'Gender',
-        fullName: 'FULL NAME',
-        name: 'NAME',
-        firstName: 'FIRST NAME',
-        middleName: 'MIDDLE NAME',
-        lastName: 'LAST NAME',
-        email: 'Email',
-        address: 'Address',
-        phone: 'Phone Number',
-        dob: 'DOB'
+        sin: "SIN",
+        gender: "Gender",
+        fullName: "FULL NAME",
+        name: "NAME",
+        firstName: "FIRST NAME",
+        middleName: "MIDDLE NAME",
+        lastName: "LAST NAME",
+        email: "Email",
+        address: "Address",
+        phone: "Phone Number",
+        dob: "DOB",
       };
       let generatedProfiles = [];
       let csvDownloaded = false;
 
-      const POSTAL_LETTERS = 'ABCEGHJKLMNPRSTVWXYZ';
+      const POSTAL_LETTERS = "ABCEGHJKLMNPRSTVWXYZ";
       const STREET_NAMES = [
-        'Maple', 'Oak', 'Cedar', 'Birch', 'Elm', 'King', 'Queen', 'Victoria',
-        'Bay', 'Yonge', 'Bloor', 'College', 'Church', 'Front', 'Main',
-        'Pine', 'Willow', 'Spruce', 'River', 'Lake'
+        "Acacia",
+        "Adelaide",
+        "Apple",
+        "Ash",
+        "Aspen",
+        "Bathurst",
+        "Bay",
+        "Beach",
+        "Beech",
+        "Birch",
+        "Bloor",
+        "Bridge",
+        "Broadview",
+        "Brook",
+        "Carlton",
+        "Cedar",
+        "Cherry",
+        "Chestnut",
+        "Church",
+        "College",
+        "Coxwell",
+        "Creek",
+        "DonMills",
+        "Donlands",
+        "Dufferin",
+        "Duke",
+        "Dundas",
+        "Eastview",
+        "Eglinton",
+        "Elm",
+        "Evergreen",
+        "Finch",
+        "Forest",
+        "Forestview",
+        "Front",
+        "Garden",
+        "Golden",
+        "Grenville",
+        "Greenwood",
+        "Grove",
+        "Harbour",
+        "Harvest",
+        "Hawthorn",
+        "Highland",
+        "Hill",
+        "Hillcrest",
+        "Islington",
+        "Jane",
+        "Jarvis",
+        "Keele",
+        "Kennedy",
+        "King",
+        "Kipling",
+        "Lake",
+        "Lakeside",
+        "Lansdowne",
+        "Lawrence",
+        "Leslie",
+        "Magnolia",
+        "Main",
+        "Maple",
+        "Marina",
+        "Market",
+        "Markham",
+        "McCowan",
+        "Meadow",
+        "Midland",
+        "Mill",
+        "Morningside",
+        "Northview",
+        "Oak",
+        "Orchard",
+        "Ossington",
+        "Parliament",
+        "Park",
+        "Parkview",
+        "Pape",
+        "Pear",
+        "Pine",
+        "Poplar",
+        "Prince",
+        "Princess",
+        "Queen",
+        "Railway",
+        "Richmond",
+        "Ridge",
+        "River",
+        "Riverside",
+        "Royal",
+        "Sheppard",
+        "Sherbourne",
+        "Shore",
+        "Silverwood",
+        "Southview",
+        "Spadina",
+        "Spruce",
+        "StGeorge",
+        "Station",
+        "Sunset",
+        "Valley",
+        "Victoria",
+        "Walnut",
+        "Wellington",
+        "Wellesley",
+        "Weston",
+        "Westview",
+        "Willow",
+        "Woodbine",
+        "Woodland",
+        "Yonge",
       ];
-      const STREET_TYPES = ['Street', 'Avenue', 'Road', 'Boulevard', 'Drive', 'Crescent', 'Court', 'Way', 'Lane', 'Trail'];
+      const STREET_TYPES = [
+        "Avenue",
+        "Bend",
+        "Boulevard",
+        "Circle",
+        "Close",
+        "Common",
+        "Court",
+        "Cove",
+        "Crescent",
+        "Crossing",
+        "Drive",
+        "Gate",
+        "Gardens",
+        "Green",
+        "Grove",
+        "Heights",
+        "Hill",
+        "Landing",
+        "Lane",
+        "Manor",
+        "Mews",
+        "Park",
+        "Parkway",
+        "Path",
+        "Place",
+        "Point",
+        "Rise",
+        "Road",
+        "Route",
+        "Run",
+        "Square",
+        "Street",
+        "Terrace",
+        "Trail",
+        "Vale",
+        "View",
+        "Walk",
+        "Way",
+        "Wood",
+      ];
 
       // Ontario/Toronto stay first so they remain the default selection.
       const PROVINCE_DATA = {
-        ON: { name: 'Ontario', defaultCity: 'Toronto', cities: {
-          Toronto: { postalPrefixes: ['M'], areaCodes: ['416', '647', '437'] },
-          Ottawa: { postalPrefixes: ['K'], areaCodes: ['613', '343'] },
-          Mississauga: { postalPrefixes: ['L'], areaCodes: ['905', '289', '365'] },
-          Hamilton: { postalPrefixes: ['L'], areaCodes: ['905', '289'] },
-          London: { postalPrefixes: ['N'], areaCodes: ['519', '226', '548'] },
-          Brampton: { postalPrefixes: ['L'], areaCodes: ['905', '289', '365'] },
-          Markham: { postalPrefixes: ['L'], areaCodes: ['905', '289', '365'] },
-          Vaughan: { postalPrefixes: ['L'], areaCodes: ['905', '289', '365'] },
-          'Richmond Hill': { postalPrefixes: ['L'], areaCodes: ['905', '289', '365'] },
-          Oakville: { postalPrefixes: ['L'], areaCodes: ['905', '289', '365'] },
-          Burlington: { postalPrefixes: ['L'], areaCodes: ['905', '289', '365'] },
-          Oshawa: { postalPrefixes: ['L'], areaCodes: ['905', '289', '365'] },
-          Whitby: { postalPrefixes: ['L'], areaCodes: ['905', '289', '365'] },
-          Ajax: { postalPrefixes: ['L'], areaCodes: ['905', '289', '365'] },
-          Pickering: { postalPrefixes: ['L'], areaCodes: ['905', '289', '365'] },
-          Milton: { postalPrefixes: ['L'], areaCodes: ['905', '289', '365'] },
-          Newmarket: { postalPrefixes: ['L'], areaCodes: ['905', '289', '365'] },
-          Aurora: { postalPrefixes: ['L'], areaCodes: ['905', '289', '365'] },
-          'St. Catharines': { postalPrefixes: ['L'], areaCodes: ['905', '289', '365'] },
-          'Niagara Falls': { postalPrefixes: ['L'], areaCodes: ['905', '289', '365'] },
-          Barrie: { postalPrefixes: ['L'], areaCodes: ['705', '249', '683'] },
-          Windsor: { postalPrefixes: ['N'], areaCodes: ['519', '226', '548'] },
-          Kitchener: { postalPrefixes: ['N'], areaCodes: ['519', '226', '548'] },
-          Waterloo: { postalPrefixes: ['N'], areaCodes: ['519', '226', '548'] },
-          Cambridge: { postalPrefixes: ['N'], areaCodes: ['519', '226', '548'] },
-          Guelph: { postalPrefixes: ['N'], areaCodes: ['519', '226', '548'] },
-          Brantford: { postalPrefixes: ['N'], areaCodes: ['519', '226', '548'] },
-          Sarnia: { postalPrefixes: ['N'], areaCodes: ['519', '226', '548'] },
-          Stratford: { postalPrefixes: ['N'], areaCodes: ['519', '226', '548'] },
-          Woodstock: { postalPrefixes: ['N'], areaCodes: ['519', '226', '548'] },
-          'Chatham-Kent': { postalPrefixes: ['N'], areaCodes: ['519', '226', '548'] },
-          Kingston: { postalPrefixes: ['K'], areaCodes: ['613', '343'] },
-          Belleville: { postalPrefixes: ['K'], areaCodes: ['613', '343'] },
-          Cornwall: { postalPrefixes: ['K'], areaCodes: ['613', '343'] },
-          Peterborough: { postalPrefixes: ['K'], areaCodes: ['705', '249', '683'] },
-          'Greater Sudbury': { postalPrefixes: ['P'], areaCodes: ['705', '249', '683'] },
-          'Thunder Bay': { postalPrefixes: ['P'], areaCodes: ['807'] },
-          'Sault Ste. Marie': { postalPrefixes: ['P'], areaCodes: ['705', '249', '683'] },
-          'North Bay': { postalPrefixes: ['P'], areaCodes: ['705', '249', '683'] },
-          Timmins: { postalPrefixes: ['P'], areaCodes: ['705', '249', '683'] }
-        } },
-        AB: { name: 'Alberta', defaultCity: 'Calgary', cities: {
-          Calgary: { postalPrefixes: ['T'], areaCodes: ['403', '587', '825'] },
-          Edmonton: { postalPrefixes: ['T'], areaCodes: ['780', '587', '825'] }
-        } },
-        BC: { name: 'British Columbia', defaultCity: 'Vancouver', cities: {
-          Vancouver: { postalPrefixes: ['V'], areaCodes: ['604', '778', '236'] },
-          Victoria: { postalPrefixes: ['V'], areaCodes: ['250', '778', '236'] }
-        } },
-        MB: { name: 'Manitoba', defaultCity: 'Winnipeg', cities: {
-          Winnipeg: { postalPrefixes: ['R'], areaCodes: ['204', '431'] }
-        } },
-        NB: { name: 'New Brunswick', defaultCity: 'Fredericton', cities: {
-          Fredericton: { postalPrefixes: ['E'], areaCodes: ['506'] },
-          Moncton: { postalPrefixes: ['E'], areaCodes: ['506'] }
-        } },
-        NL: { name: 'Newfoundland and Labrador', defaultCity: "St. John's", cities: {
-          "St. John's": { postalPrefixes: ['A'], areaCodes: ['709'] }
-        } },
-        NS: { name: 'Nova Scotia', defaultCity: 'Halifax', cities: {
-          Halifax: { postalPrefixes: ['B'], areaCodes: ['902', '782'] }
-        } },
-        NT: { name: 'Northwest Territories', defaultCity: 'Yellowknife', cities: {
-          Yellowknife: { postalPrefixes: ['X'], areaCodes: ['867'] }
-        } },
-        NU: { name: 'Nunavut', defaultCity: 'Iqaluit', cities: {
-          Iqaluit: { postalPrefixes: ['X'], areaCodes: ['867'] }
-        } },
-        PE: { name: 'Prince Edward Island', defaultCity: 'Charlottetown', cities: {
-          Charlottetown: { postalPrefixes: ['C'], areaCodes: ['902', '782'] }
-        } },
-        QC: { name: 'Quebec', defaultCity: 'Montreal', cities: {
-          Montreal: { postalPrefixes: ['H'], areaCodes: ['514', '438'] },
-          'Quebec City': { postalPrefixes: ['G'], areaCodes: ['418', '581'] }
-        } },
-        SK: { name: 'Saskatchewan', defaultCity: 'Saskatoon', cities: {
-          Saskatoon: { postalPrefixes: ['S'], areaCodes: ['306', '639'] },
-          Regina: { postalPrefixes: ['S'], areaCodes: ['306', '639'] }
-        } },
-        YT: { name: 'Yukon', defaultCity: 'Whitehorse', cities: {
-          Whitehorse: { postalPrefixes: ['Y'], areaCodes: ['867'] }
-        } }
+        ON: {
+          name: "Ontario",
+          defaultCity: "Toronto",
+          cities: {
+            Toronto: {
+              postalPrefixes: ["M"],
+              areaCodes: ["416", "647", "437"],
+            },
+            Ottawa: { postalPrefixes: ["K"], areaCodes: ["613", "343"] },
+            Mississauga: {
+              postalPrefixes: ["L"],
+              areaCodes: ["905", "289", "365"],
+            },
+            Hamilton: { postalPrefixes: ["L"], areaCodes: ["905", "289"] },
+            London: { postalPrefixes: ["N"], areaCodes: ["519", "226", "548"] },
+            Brampton: {
+              postalPrefixes: ["L"],
+              areaCodes: ["905", "289", "365"],
+            },
+            Markham: {
+              postalPrefixes: ["L"],
+              areaCodes: ["905", "289", "365"],
+            },
+            Vaughan: {
+              postalPrefixes: ["L"],
+              areaCodes: ["905", "289", "365"],
+            },
+            "Richmond Hill": {
+              postalPrefixes: ["L"],
+              areaCodes: ["905", "289", "365"],
+            },
+            Oakville: {
+              postalPrefixes: ["L"],
+              areaCodes: ["905", "289", "365"],
+            },
+            Burlington: {
+              postalPrefixes: ["L"],
+              areaCodes: ["905", "289", "365"],
+            },
+            Oshawa: { postalPrefixes: ["L"], areaCodes: ["905", "289", "365"] },
+            Whitby: { postalPrefixes: ["L"], areaCodes: ["905", "289", "365"] },
+            Ajax: { postalPrefixes: ["L"], areaCodes: ["905", "289", "365"] },
+            Pickering: {
+              postalPrefixes: ["L"],
+              areaCodes: ["905", "289", "365"],
+            },
+            Milton: { postalPrefixes: ["L"], areaCodes: ["905", "289", "365"] },
+            Newmarket: {
+              postalPrefixes: ["L"],
+              areaCodes: ["905", "289", "365"],
+            },
+            Aurora: { postalPrefixes: ["L"], areaCodes: ["905", "289", "365"] },
+            "St. Catharines": {
+              postalPrefixes: ["L"],
+              areaCodes: ["905", "289", "365"],
+            },
+            "Niagara Falls": {
+              postalPrefixes: ["L"],
+              areaCodes: ["905", "289", "365"],
+            },
+            Barrie: { postalPrefixes: ["L"], areaCodes: ["705", "249", "683"] },
+            Windsor: {
+              postalPrefixes: ["N"],
+              areaCodes: ["519", "226", "548"],
+            },
+            Kitchener: {
+              postalPrefixes: ["N"],
+              areaCodes: ["519", "226", "548"],
+            },
+            Waterloo: {
+              postalPrefixes: ["N"],
+              areaCodes: ["519", "226", "548"],
+            },
+            Cambridge: {
+              postalPrefixes: ["N"],
+              areaCodes: ["519", "226", "548"],
+            },
+            Guelph: { postalPrefixes: ["N"], areaCodes: ["519", "226", "548"] },
+            Brantford: {
+              postalPrefixes: ["N"],
+              areaCodes: ["519", "226", "548"],
+            },
+            Sarnia: { postalPrefixes: ["N"], areaCodes: ["519", "226", "548"] },
+            Stratford: {
+              postalPrefixes: ["N"],
+              areaCodes: ["519", "226", "548"],
+            },
+            Woodstock: {
+              postalPrefixes: ["N"],
+              areaCodes: ["519", "226", "548"],
+            },
+            "Chatham-Kent": {
+              postalPrefixes: ["N"],
+              areaCodes: ["519", "226", "548"],
+            },
+            Kingston: { postalPrefixes: ["K"], areaCodes: ["613", "343"] },
+            Belleville: { postalPrefixes: ["K"], areaCodes: ["613", "343"] },
+            Cornwall: { postalPrefixes: ["K"], areaCodes: ["613", "343"] },
+            Peterborough: {
+              postalPrefixes: ["K"],
+              areaCodes: ["705", "249", "683"],
+            },
+            "Greater Sudbury": {
+              postalPrefixes: ["P"],
+              areaCodes: ["705", "249", "683"],
+            },
+            "Thunder Bay": { postalPrefixes: ["P"], areaCodes: ["807"] },
+            "Sault Ste. Marie": {
+              postalPrefixes: ["P"],
+              areaCodes: ["705", "249", "683"],
+            },
+            "North Bay": {
+              postalPrefixes: ["P"],
+              areaCodes: ["705", "249", "683"],
+            },
+            Timmins: {
+              postalPrefixes: ["P"],
+              areaCodes: ["705", "249", "683"],
+            },
+          },
+        },
+        AB: {
+          name: "Alberta",
+          defaultCity: "Calgary",
+          cities: {
+            Calgary: {
+              postalPrefixes: ["T"],
+              areaCodes: ["403", "587", "825"],
+            },
+            Edmonton: {
+              postalPrefixes: ["T"],
+              areaCodes: ["780", "587", "825"],
+            },
+          },
+        },
+        BC: {
+          name: "British Columbia",
+          defaultCity: "Vancouver",
+          cities: {
+            Vancouver: {
+              postalPrefixes: ["V"],
+              areaCodes: ["604", "778", "236"],
+            },
+            Victoria: {
+              postalPrefixes: ["V"],
+              areaCodes: ["250", "778", "236"],
+            },
+          },
+        },
+        MB: {
+          name: "Manitoba",
+          defaultCity: "Winnipeg",
+          cities: {
+            Winnipeg: { postalPrefixes: ["R"], areaCodes: ["204", "431"] },
+          },
+        },
+        NB: {
+          name: "New Brunswick",
+          defaultCity: "Fredericton",
+          cities: {
+            Fredericton: { postalPrefixes: ["E"], areaCodes: ["506"] },
+            Moncton: { postalPrefixes: ["E"], areaCodes: ["506"] },
+          },
+        },
+        NL: {
+          name: "Newfoundland and Labrador",
+          defaultCity: "St. John's",
+          cities: {
+            "St. John's": { postalPrefixes: ["A"], areaCodes: ["709"] },
+          },
+        },
+        NS: {
+          name: "Nova Scotia",
+          defaultCity: "Halifax",
+          cities: {
+            Halifax: { postalPrefixes: ["B"], areaCodes: ["902", "782"] },
+          },
+        },
+        NT: {
+          name: "Northwest Territories",
+          defaultCity: "Yellowknife",
+          cities: {
+            Yellowknife: { postalPrefixes: ["X"], areaCodes: ["867"] },
+          },
+        },
+        NU: {
+          name: "Nunavut",
+          defaultCity: "Iqaluit",
+          cities: {
+            Iqaluit: { postalPrefixes: ["X"], areaCodes: ["867"] },
+          },
+        },
+        PE: {
+          name: "Prince Edward Island",
+          defaultCity: "Charlottetown",
+          cities: {
+            Charlottetown: { postalPrefixes: ["C"], areaCodes: ["902", "782"] },
+          },
+        },
+        QC: {
+          name: "Quebec",
+          defaultCity: "Montreal",
+          cities: {
+            Montreal: { postalPrefixes: ["H"], areaCodes: ["514", "438"] },
+            "Quebec City": { postalPrefixes: ["G"], areaCodes: ["418", "581"] },
+          },
+        },
+        SK: {
+          name: "Saskatchewan",
+          defaultCity: "Saskatoon",
+          cities: {
+            Saskatoon: { postalPrefixes: ["S"], areaCodes: ["306", "639"] },
+            Regina: { postalPrefixes: ["S"], areaCodes: ["306", "639"] },
+          },
+        },
+        YT: {
+          name: "Yukon",
+          defaultCity: "Whitehorse",
+          cities: {
+            Whitehorse: { postalPrefixes: ["Y"], areaCodes: ["867"] },
+          },
+        },
       };
 
       function pickRandom(list) {
@@ -1038,28 +1566,28 @@
         profileCitySelect.innerHTML = Object.keys(province.cities)
           .sort((a, b) => a.localeCompare(b))
           .map((city) => `<option value="${city}">${city}</option>`)
-          .join('');
+          .join("");
         profileCitySelect.value = province.defaultCity;
       }
 
       populateProfileCityOptions();
-      profileProvince.addEventListener('change', populateProfileCityOptions);
+      profileProvince.addEventListener("change", populateProfileCityOptions);
       function toggleProfileLocation() {
         const showLocation = profileAddressField.checked;
         profileLocation.hidden = !showLocation;
-        profileLocation.style.display = showLocation ? 'grid' : 'none';
+        profileLocation.style.display = showLocation ? "grid" : "none";
         addressUnitOption.hidden = !showLocation;
       }
 
       toggleProfileLocation();
-      profileAddressField.addEventListener('change', toggleProfileLocation);
+      profileAddressField.addEventListener("change", toggleProfileLocation);
       function toggleNameOptions() {
         nameOptions.hidden = !fullNameField.checked;
       }
 
       toggleNameOptions();
-      fullNameField.addEventListener('change', toggleNameOptions);
-      selectAllFields.addEventListener('change', () => {
+      fullNameField.addEventListener("change", toggleNameOptions);
+      selectAllFields.addEventListener("change", () => {
         profileFields.forEach((field) => {
           field.checked = selectAllFields.checked;
         });
@@ -1067,20 +1595,25 @@
         toggleNameOptions();
         updateSelectionSummary();
       });
-      profileFields.forEach((field) => field.addEventListener('change', () => {
-        selectAllFields.checked = profileFields.every((profileField) => profileField.checked);
-        updateSelectionSummary();
-      }));
+      profileFields.forEach((field) =>
+        field.addEventListener("change", () => {
+          selectAllFields.checked = profileFields.every(
+            (profileField) => profileField.checked,
+          );
+          updateSelectionSummary();
+        }),
+      );
       updateSelectionSummary();
 
       function generatePostalCode(prefixes) {
         const digit = () => Math.floor(Math.random() * 10);
-        const letter = () => POSTAL_LETTERS[Math.floor(Math.random() * POSTAL_LETTERS.length)];
+        const letter = () =>
+          POSTAL_LETTERS[Math.floor(Math.random() * POSTAL_LETTERS.length)];
         return `${pickRandom(prefixes)}${digit()}${letter()} ${digit()}${letter()}${digit()}`;
       }
 
       function generatePhoneNumber(areaCodes) {
-        const line = String(Math.floor(Math.random() * 100)).padStart(2, '0');
+        const line = String(Math.floor(Math.random() * 100)).padStart(2, "0");
         return `(${pickRandom(areaCodes)}) 555-01${line}`;
       }
 
@@ -1097,17 +1630,20 @@
 
       function generateSin() {
         const firstDigit = pickRandom([1, 2, 3, 4, 5, 6, 7, 9]);
-        const digits = [firstDigit, ...Array.from({ length: 7 }, () => Math.floor(Math.random() * 10))];
+        const digits = [
+          firstDigit,
+          ...Array.from({ length: 7 }, () => Math.floor(Math.random() * 10)),
+        ];
         const remainder = checksumSum(digits) % 10;
         digits.push(remainder === 0 ? 0 : 10 - remainder);
-        return digits.join('');
+        return digits.join("");
       }
 
       function isValidSin(sin) {
         return (
-          /^\d{9}$/.test(sin)
-          && ![0, 8].includes(Number(sin[0]))
-          && checksumSum(sin.split('').map(Number)) % 10 === 0
+          /^\d{9}$/.test(sin) &&
+          ![0, 8].includes(Number(sin[0])) &&
+          checksumSum(sin.split("").map(Number)) % 10 === 0
         );
       }
 
@@ -1120,39 +1656,111 @@
             // Fall through to the legacy fallback below.
           }
         }
-        const helper = document.createElement('textarea');
+        const helper = document.createElement("textarea");
         helper.value = text;
-        helper.setAttribute('readonly', '');
-        helper.style.position = 'fixed';
-        helper.style.opacity = '0';
+        helper.setAttribute("readonly", "");
+        helper.style.position = "fixed";
+        helper.style.opacity = "0";
         document.body.appendChild(helper);
         helper.select();
-        const copied = document.execCommand('copy');
+        const copied = document.execCommand("copy");
         helper.remove();
         return copied;
       }
 
-      function showStatus(message, type = '') {
+      function showStatus(message, type = "") {
         profileStatus.textContent = message;
-        profileStatus.className = type ? `status ${type}` : 'status';
+        profileStatus.className = type ? `status ${type}` : "status";
       }
 
       const PROFILE_FIRST_NAMES = [
-        'Alex', 'Jordan', 'Taylor', 'Riley', 'Casey', 'Avery',
-        'Morgan', 'Sam', 'Jamie', 'Cameron', 'Drew', 'Quinn'
+        "Alex",
+        "Jordan",
+        "Taylor",
+        "Riley",
+        "Casey",
+        "Avery",
+        "Morgan",
+        "Sam",
+        "Jamie",
+        "Cameron",
+        "Drew",
+        "Quinn",
       ];
       const PROFILE_MIDDLE_NAMES = [
-        'James', 'Marie', 'Michael', 'Rose', 'David', 'Anne',
-        'Robert', 'Grace', 'Daniel', 'Louise', 'Thomas', 'Elizabeth'
+        "James",
+        "Marie",
+        "Michael",
+        "Rose",
+        "David",
+        "Anne",
+        "Robert",
+        "Grace",
+        "Daniel",
+        "Louise",
+        "Thomas",
+        "Elizabeth",
       ];
       const PROFILE_GENDER_NAMES = {
         female: {
-          first: ['Ava', 'Emma', 'Olivia', 'Sophia', 'Mia', 'Charlotte', 'Amelia', 'Isla', 'Ella', 'Grace', 'Lily', 'Chloe'],
-          middle: ['Marie', 'Rose', 'Anne', 'Grace', 'Louise', 'Claire', 'Jane', 'Elizabeth', 'Hope', 'Faith', 'Nicole', 'Renee']
+          first: [
+            "Ava",
+            "Emma",
+            "Olivia",
+            "Sophia",
+            "Mia",
+            "Charlotte",
+            "Amelia",
+            "Isla",
+            "Ella",
+            "Grace",
+            "Lily",
+            "Chloe",
+          ],
+          middle: [
+            "Marie",
+            "Rose",
+            "Anne",
+            "Grace",
+            "Louise",
+            "Claire",
+            "Jane",
+            "Elizabeth",
+            "Hope",
+            "Faith",
+            "Nicole",
+            "Renee",
+          ],
         },
         male: {
-          first: ['Liam', 'Noah', 'Oliver', 'William', 'Benjamin', 'Lucas', 'Henry', 'James', 'Theodore', 'Jack', 'Leo', 'Daniel'],
-          middle: ['James', 'Michael', 'David', 'Robert', 'Daniel', 'Thomas', 'Joseph', 'Andrew', 'Charles', 'Edward', 'Matthew', 'John']
+          first: [
+            "Liam",
+            "Noah",
+            "Oliver",
+            "William",
+            "Benjamin",
+            "Lucas",
+            "Henry",
+            "James",
+            "Theodore",
+            "Jack",
+            "Leo",
+            "Daniel",
+          ],
+          middle: [
+            "James",
+            "Michael",
+            "David",
+            "Robert",
+            "Daniel",
+            "Thomas",
+            "Joseph",
+            "Andrew",
+            "Charles",
+            "Edward",
+            "Matthew",
+            "John",
+          ],
         },
       };
 
@@ -1163,29 +1771,44 @@
       }
 
       updateGenderRatio();
-      genderRatio.addEventListener('input', updateGenderRatio);
+      genderRatio.addEventListener("input", updateGenderRatio);
       const PROFILE_LAST_NAMES = [
-        'Morgan', 'Lee', 'Smith', 'Chen', 'Martin', 'Patel',
-        'Brown', 'Wilson', 'Garcia', 'Singh', 'Nguyen', 'Clark'
+        "Morgan",
+        "Lee",
+        "Smith",
+        "Chen",
+        "Martin",
+        "Patel",
+        "Brown",
+        "Wilson",
+        "Garcia",
+        "Singh",
+        "Nguyen",
+        "Clark",
       ];
-      const randomStreet = () => `${pickRandom(STREET_NAMES)} ${pickRandom(STREET_TYPES)}`;
+      const randomStreet = () =>
+        `${pickRandom(STREET_NAMES)} ${pickRandom(STREET_TYPES)}`;
       function uniqueValue(usedValues, createValue) {
         let value;
-        do value = createValue(); while (usedValues.has(value));
+        do value = createValue();
+        while (usedValues.has(value));
         usedValues.add(value);
         return value;
       }
 
       function createGenderAssignments(count) {
-        if (count === 1) return [Math.random() < 0.5 ? 'male' : 'female'];
-        const maleCount = Math.round(count * Number(genderRatio.value) / 100);
+        if (count === 1) return [Math.random() < 0.5 ? "male" : "female"];
+        const maleCount = Math.round((count * Number(genderRatio.value)) / 100);
         const assignments = [
-          ...Array.from({ length: maleCount }, () => 'male'),
-          ...Array.from({ length: count - maleCount }, () => 'female')
+          ...Array.from({ length: maleCount }, () => "male"),
+          ...Array.from({ length: count - maleCount }, () => "female"),
         ];
         for (let index = assignments.length - 1; index > 0; index--) {
           const swapIndex = Math.floor(Math.random() * (index + 1));
-          [assignments[index], assignments[swapIndex]] = [assignments[swapIndex], assignments[index]];
+          [assignments[index], assignments[swapIndex]] = [
+            assignments[swapIndex],
+            assignments[index],
+          ];
         }
         return assignments;
       }
@@ -1195,22 +1818,38 @@
         const cityName = profileCitySelect.value;
         const city = province.cities[cityName];
         const genderNames = PROFILE_GENDER_NAMES[selectedGender];
-        const firstName = uniqueValue(usedValues.firstName, () => pickRandom(genderNames.first));
-        const middleName = uniqueValue(usedValues.middleName, () => pickRandom(genderNames.middle));
-        const lastName = uniqueValue(usedValues.lastName, () => pickRandom(PROFILE_LAST_NAMES));
+        const firstName = uniqueValue(usedValues.firstName, () =>
+          pickRandom(genderNames.first),
+        );
+        const middleName = uniqueValue(usedValues.middleName, () =>
+          pickRandom(genderNames.middle),
+        );
+        const lastName = uniqueValue(usedValues.lastName, () =>
+          pickRandom(PROFILE_LAST_NAMES),
+        );
         const address = uniqueValue(usedValues.address, () => {
-          const unit = addressUnit.checked ? `Unit ${1 + Math.floor(Math.random() * 300)} - ` : '';
+          const unit = addressUnit.checked
+            ? `Unit ${1 + Math.floor(Math.random() * 300)} - `
+            : "";
           const streetNumber = 1 + Math.floor(Math.random() * 998);
           const postalCode = generatePostalCode(city.postalPrefixes);
           return `${unit}${streetNumber} ${randomStreet()}, ${cityName}, ${profileProvince.value} ${postalCode}`;
         });
         const dob = uniqueValue(usedValues.dob, () => {
           const birthYear = 1955 + Math.floor(Math.random() * 48);
-          const month = String(1 + Math.floor(Math.random() * 12)).padStart(2, '0');
-          const day = String(1 + Math.floor(Math.random() * 28)).padStart(2, '0');
+          const month = String(1 + Math.floor(Math.random() * 12)).padStart(
+            2,
+            "0",
+          );
+          const day = String(1 + Math.floor(Math.random() * 28)).padStart(
+            2,
+            "0",
+          );
           return `${birthYear}-${month}-${day}`;
         });
-        const phone = uniqueValue(usedValues.phone, () => generatePhoneNumber(city.areaCodes));
+        const phone = uniqueValue(usedValues.phone, () =>
+          generatePhoneNumber(city.areaCodes),
+        );
         const sin = uniqueValue(usedValues.sin, () => {
           let candidate = generateSin();
           while (!isValidSin(candidate)) candidate = generateSin();
@@ -1222,10 +1861,14 @@
           firstName,
           middleName,
           lastName,
-          email: uniqueValue(usedValues.email, () => `${firstName.toLowerCase()}.${lastName.toLowerCase()}@ontario.ca`),
+          email: uniqueValue(
+            usedValues.email,
+            () =>
+              `${firstName.toLowerCase()}.${lastName.toLowerCase()}@ontario.ca`,
+          ),
           address,
           phone,
-          dob
+          dob,
         };
       }
 
@@ -1233,169 +1876,235 @@
         const selectedFields = new Set(
           Array.from(
             document.querySelectorAll('input[name="profile-field"]:checked'),
-            (input) => input.value
-          )
+            (input) => input.value,
+          ),
         );
         return profileFieldOrder.filter((field) => selectedFields.has(field));
       }
 
       function updateSelectionSummary() {
         const count = selectedProfileFields().length;
-        selectionSummary.textContent = `${count} field${count === 1 ? '' : 's'} selected`;
+        selectionSummary.textContent = `${count} field${count === 1 ? "" : "s"} selected`;
       }
 
       function selectedNameFields(fields) {
-        return ['firstName', 'middleName', 'lastName'].filter((field) => fields.includes(field));
+        return ["firstName", "middleName", "lastName"].filter((field) =>
+          fields.includes(field),
+        );
       }
 
       function displayProfileFields(fields) {
-        if (!fields.includes('fullName')) return fields;
-        const fullNameIndex = fields.indexOf('fullName');
+        if (!fields.includes("fullName")) return fields;
+        const fullNameIndex = fields.indexOf("fullName");
         return [
           ...fields.slice(0, fullNameIndex + 1),
           ...selectedNameFields(fields),
-          ...fields.slice(fullNameIndex + 1).filter((field) => !['firstName', 'middleName', 'lastName'].includes(field))
+          ...fields
+            .slice(fullNameIndex + 1)
+            .filter(
+              (field) =>
+                !["firstName", "middleName", "lastName"].includes(field),
+            ),
         ];
       }
 
       function formatProfileName(profile, fields) {
         const nameFields = selectedNameFields(fields);
-        if (!fields.includes('fullName') && !nameFields.length) return '';
-        const nameParts = nameFields.length ? nameFields : ['firstName', 'middleName', 'lastName'];
-        return nameParts.map((field) => profile[field]).join(' ');
+        if (!fields.includes("fullName") && !nameFields.length) return "";
+        const nameParts = nameFields.length
+          ? nameFields
+          : ["firstName", "middleName", "lastName"];
+        return nameParts.map((field) => profile[field]).join(" ");
       }
 
       function profileFieldValue(profile, field, fields) {
-        return field === 'name' || field === 'fullName' ? formatProfileName(profile, fields) : profile[field];
+        return field === "name" || field === "fullName"
+          ? formatProfileName(profile, fields)
+          : profile[field];
       }
 
       function profileFieldDisplayValue(profile, field, fields) {
         const value = profileFieldValue(profile, field, fields);
-        return field === 'dob' ? `${value} (YYYY-MM-DD)` : value;
+        return field === "dob" ? `${value} (YYYY-MM-DD)` : value;
       }
 
       function profileText(profile, fields) {
-        if (fields.length === 2 && fields.includes('address') && fields.includes('phone')) {
+        if (
+          fields.length === 2 &&
+          fields.includes("address") &&
+          fields.includes("phone")
+        ) {
           return `${profile.address}\n${profile.phone}`;
         }
         const name = formatProfileName(profile, fields);
         const displayFields = displayProfileFields(fields);
         const labelFor = (field) => FIELD_LABELS[field] || field.toUpperCase();
-        const valueFor = (field) => (field === 'fullName' || field === 'name' ? name : profile[field]);
-        return displayFields.map((field) => `${labelFor(field)}: ${valueFor(field)}`).join('\n');
+        const valueFor = (field) =>
+          field === "fullName" || field === "name" ? name : profile[field];
+        return displayFields
+          .map((field) => `${labelFor(field)}: ${valueFor(field)}`)
+          .join("\n");
       }
 
       function exportFields(fields) {
-        if (!fields.includes('fullName')) return fields;
-        const otherFields = fields.filter((field) => !['fullName', 'firstName', 'middleName', 'lastName'].includes(field));
-        return ['fullName', ...selectedNameFields(fields), ...otherFields];
+        if (!fields.includes("fullName")) return fields;
+        const otherFields = fields.filter(
+          (field) =>
+            !["fullName", "firstName", "middleName", "lastName"].includes(
+              field,
+            ),
+        );
+        return ["fullName", ...selectedNameFields(fields), ...otherFields];
       }
 
       function csvValue(value) {
-        const text = String(value ?? '');
+        const text = String(value ?? "");
         return /[",\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
       }
 
       async function handleProfileCopy(text, successMessage) {
         try {
-          if (!(await copyText(text))) throw new Error('Copy failed');
-          showStatus(successMessage, 'copy-success');
+          if (!(await copyText(text))) throw new Error("Copy failed");
+          showStatus(successMessage, "copy-success");
         } catch {
-          showStatus('Copy is unavailable in this browser.', 'error');
+          showStatus("Copy is unavailable in this browser.", "error");
         }
       }
 
       function downloadProfilesCsv() {
-        if (csvDownloaded && !window.confirm('This CSV was already downloaded. Do you want to download it again?')) return;
+        if (
+          csvDownloaded &&
+          !window.confirm(
+            "This CSV was already downloaded. Do you want to download it again?",
+          )
+        )
+          return;
         const fields = exportFields(selectedProfileFields());
-        const rows = [fields.map((field) => FIELD_LABELS[field] || field.toUpperCase())];
+        const rows = [
+          fields.map((field) => FIELD_LABELS[field] || field.toUpperCase()),
+        ];
         generatedProfiles.forEach((profile) => {
-          rows.push(fields.map((field) => profileFieldValue(profile, field, fields)));
+          rows.push(
+            fields.map((field) => profileFieldValue(profile, field, fields)),
+          );
         });
-        const csv = rows.map((row) => row.map(csvValue).join(',')).join('\r\n');
-        const blobUrl = URL.createObjectURL(new Blob([`\ufeff${csv}`], { type: 'text/csv;charset=utf-8' }));
-        const link = document.createElement('a');
+        const csv = rows.map((row) => row.map(csvValue).join(",")).join("\r\n");
+        const blobUrl = URL.createObjectURL(
+          new Blob([`\ufeff${csv}`], { type: "text/csv;charset=utf-8" }),
+        );
+        const link = document.createElement("a");
         link.href = blobUrl;
         link.download = `test-profiles-${new Date().toISOString().slice(0, 10)}.csv`;
         link.click();
         URL.revokeObjectURL(blobUrl);
         csvDownloaded = true;
-        showStatus('CSV download started.', 'copy-success');
+        showStatus("CSV download started.", "copy-success");
       }
 
       function renderProfiles(fields) {
-        profileResults.replaceChildren(...generatedProfiles.map((profile, index) => {
-          const card = document.createElement('div');
-          const addressPhoneOnly = fields.length === 2 && fields.includes('address') && fields.includes('phone');
-          card.className = addressPhoneOnly ? 'profile-card address-format' : 'profile-card';
-          card.dataset.profileNumber = index + 1;
-          if (addressPhoneOnly) {
-            [['address', `${index + 1}. ${profile.address}`], ['phone', profile.phone]].forEach(([field, value]) => {
-              const line = document.createElement('p');
-              line.className = 'profile-address-result profile-field-row';
-              line.dataset.profileIndex = index;
-              line.dataset.profileField = field;
-              line.setAttribute('role', 'button');
-              line.tabIndex = 0;
-              line.setAttribute('aria-label', `Copy ${field} for profile ${index + 1}`);
-              line.title = `Click to copy ${field}`;
-              const valueText = document.createElement('span');
-              valueText.className = 'field-value';
-              valueText.textContent = value;
-              line.append(valueText);
-              card.append(line);
-            });
-          } else {
-            const name = formatProfileName(profile, fields);
-            const selectedFields = fields.includes('fullName')
-              ? displayProfileFields(fields)
-              : (name
-                  ? ['name', ...fields.filter((field) => !['firstName', 'middleName', 'lastName'].includes(field))]
-                  : fields);
-            selectedFields.forEach((field) => {
-              const line = document.createElement('p');
-              const label = document.createElement('strong');
-              label.textContent = `${FIELD_LABELS[field] || field.toUpperCase()}:`;
-              line.className = 'profile-field-row';
-              line.dataset.profileIndex = index;
-              line.dataset.profileField = field;
-              line.setAttribute('role', 'button');
-              line.tabIndex = 0;
-              const displayName = field === 'name' || field === 'fullName' ? 'full name' : field;
-              line.setAttribute('aria-label', `Copy ${displayName} for profile ${index + 1}`);
-              line.title = `Click to copy ${displayName}`;
-              const valueText = document.createElement('span');
-              valueText.className = 'field-value';
-              valueText.textContent = ` ${profileFieldDisplayValue(profile, field, fields)}`;
-              line.append(label, valueText);
-              card.append(line);
-            });
-          }
-          const copyButton = document.createElement('button');
-          copyButton.className = 'batch-copy';
-          copyButton.type = 'button';
-          copyButton.dataset.profileIndex = index;
-          copyButton.textContent = 'Copy';
-          copyButton.setAttribute('aria-label', `Copy profile ${index + 1}`);
-          copyButton.title = 'Copy complete profile';
-          card.append(copyButton);
-          return card;
-        }));
+        profileResults.replaceChildren(
+          ...generatedProfiles.map((profile, index) => {
+            const card = document.createElement("div");
+            const addressPhoneOnly =
+              fields.length === 2 &&
+              fields.includes("address") &&
+              fields.includes("phone");
+            card.className = addressPhoneOnly
+              ? "profile-card address-format"
+              : "profile-card";
+            card.dataset.profileNumber = index + 1;
+            if (addressPhoneOnly) {
+              [
+                ["address", `${index + 1}. ${profile.address}`],
+                ["phone", profile.phone],
+              ].forEach(([field, value]) => {
+                const line = document.createElement("p");
+                line.className = "profile-address-result profile-field-row";
+                line.dataset.profileIndex = index;
+                line.dataset.profileField = field;
+                line.setAttribute("role", "button");
+                line.tabIndex = 0;
+                line.setAttribute(
+                  "aria-label",
+                  `Copy ${field} for profile ${index + 1}`,
+                );
+                line.title = `Click to copy ${field}`;
+                const valueText = document.createElement("span");
+                valueText.className = "field-value";
+                valueText.textContent = value;
+                line.append(valueText);
+                card.append(line);
+              });
+            } else {
+              const name = formatProfileName(profile, fields);
+              const selectedFields = fields.includes("fullName")
+                ? displayProfileFields(fields)
+                : name
+                  ? [
+                      "name",
+                      ...fields.filter(
+                        (field) =>
+                          !["firstName", "middleName", "lastName"].includes(
+                            field,
+                          ),
+                      ),
+                    ]
+                  : fields;
+              selectedFields.forEach((field) => {
+                const line = document.createElement("p");
+                const label = document.createElement("strong");
+                label.textContent = `${FIELD_LABELS[field] || field.toUpperCase()}:`;
+                line.className = "profile-field-row";
+                line.dataset.profileIndex = index;
+                line.dataset.profileField = field;
+                line.setAttribute("role", "button");
+                line.tabIndex = 0;
+                const displayName =
+                  field === "name" || field === "fullName"
+                    ? "full name"
+                    : field;
+                line.setAttribute(
+                  "aria-label",
+                  `Copy ${displayName} for profile ${index + 1}`,
+                );
+                line.title = `Click to copy ${displayName}`;
+                const valueText = document.createElement("span");
+                valueText.className = "field-value";
+                valueText.textContent = ` ${profileFieldDisplayValue(profile, field, fields)}`;
+                line.append(label, valueText);
+                card.append(line);
+              });
+            }
+            const copyButton = document.createElement("button");
+            copyButton.className = "batch-copy";
+            copyButton.type = "button";
+            copyButton.dataset.profileIndex = index;
+            copyButton.textContent = "Copy";
+            copyButton.setAttribute("aria-label", `Copy profile ${index + 1}`);
+            copyButton.title = "Copy complete profile";
+            card.append(copyButton);
+            return card;
+          }),
+        );
       }
 
-      generateProfilesButton.addEventListener('click', () => {
-        if (generatedProfiles.length > 1
-          && !window.confirm('Test profiles already exist. Do you want to generate new profiles and replace them?')) {
+      generateProfilesButton.addEventListener("click", () => {
+        if (
+          generatedProfiles.length > 1 &&
+          !window.confirm(
+            "Test profiles already exist. Do you want to generate new profiles and replace them?",
+          )
+        ) {
           return;
         }
         const count = Number(profileCount.value);
         const fields = selectedProfileFields();
         if (!Number.isInteger(count) || count < 1 || count > 100) {
-          showStatus('Enter a whole number from 1 to 100.', 'error');
+          showStatus("Enter a whole number from 1 to 100.", "error");
           return;
         }
         if (!fields.length) {
-          showStatus('Select at least one field to generate.', 'error');
+          showStatus("Select at least one field to generate.", "error");
           return;
         }
         const usedValues = {
@@ -1406,68 +2115,82 @@
           email: new Set(),
           address: new Set(),
           phone: new Set(),
-          dob: new Set()
+          dob: new Set(),
         };
         const genderAssignments = createGenderAssignments(count);
-        generatedProfiles = genderAssignments.map((selectedGender) => generateProfile(usedValues, selectedGender));
+        generatedProfiles = genderAssignments.map((selectedGender) =>
+          generateProfile(usedValues, selectedGender),
+        );
         csvDownloaded = false;
         renderProfiles(fields);
         profileResults.scrollIntoView({
-          behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
-          block: 'start'
+          behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
+            .matches
+            ? "auto"
+            : "smooth",
+          block: "start",
         });
         profileCopyAllButton.disabled = false;
         downloadCsvButton.hidden = count <= 1;
-        showStatus(`${count} test profile${count === 1 ? '' : 's'} generated.`, 'success');
+        showStatus(
+          `${count} test profile${count === 1 ? "" : "s"} generated.`,
+          "success",
+        );
       });
 
-      profileResults.addEventListener('click', (event) => {
-        const fieldRow = event.target.closest('[data-profile-field]');
-        if (fieldRow && !event.target.closest('button')) {
-          const profile = generatedProfiles[Number(fieldRow.dataset.profileIndex)];
+      profileResults.addEventListener("click", (event) => {
+        const fieldRow = event.target.closest("[data-profile-field]");
+        if (fieldRow && !event.target.closest("button")) {
+          const profile =
+            generatedProfiles[Number(fieldRow.dataset.profileIndex)];
           const fields = selectedProfileFields();
           if (profile) {
             handleProfileCopy(
               profileFieldValue(profile, fieldRow.dataset.profileField, fields),
-              `${fieldRow.dataset.profileField.toUpperCase()} copied to clipboard.`
+              `${fieldRow.dataset.profileField.toUpperCase()} copied to clipboard.`,
             );
           }
           return;
         }
-        const button = event.target.closest('[data-profile-index]');
+        const button = event.target.closest("[data-profile-index]");
         if (!button) return;
         const fields = selectedProfileFields();
         handleProfileCopy(
-          profileText(generatedProfiles[Number(button.dataset.profileIndex)], fields),
-          'Profile copied to clipboard.'
+          profileText(
+            generatedProfiles[Number(button.dataset.profileIndex)],
+            fields,
+          ),
+          "Profile copied to clipboard.",
         );
       });
 
-      profileResults.addEventListener('keydown', (event) => {
-        const fieldRow = event.target.closest('[data-profile-field]');
-        if (!fieldRow || (event.key !== 'Enter' && event.key !== ' ')) return;
+      profileResults.addEventListener("keydown", (event) => {
+        const fieldRow = event.target.closest("[data-profile-field]");
+        if (!fieldRow || (event.key !== "Enter" && event.key !== " ")) return;
         event.preventDefault();
         fieldRow.click();
       });
 
-      profileCopyAllButton.addEventListener('click', () => {
+      profileCopyAllButton.addEventListener("click", () => {
         if (!generatedProfiles.length) return;
         const fields = selectedProfileFields();
-        const allText = generatedProfiles.map((profile) => profileText(profile, fields)).join('\n\n');
-        handleProfileCopy(allText, 'Profiles copied to clipboard.');
+        const allText = generatedProfiles
+          .map((profile) => profileText(profile, fields))
+          .join("\n\n");
+        handleProfileCopy(allText, "Profiles copied to clipboard.");
       });
 
-      downloadCsvButton.addEventListener('click', downloadProfilesCsv);
+      downloadCsvButton.addEventListener("click", downloadProfilesCsv);
 
-      clearProfilesButton.addEventListener('click', () => {
+      clearProfilesButton.addEventListener("click", () => {
         generatedProfiles = [];
         csvDownloaded = false;
-        profileResults.innerHTML = '<p class="empty-state">Choose your fields and generate a profile to see results here.</p>';
+        profileResults.innerHTML =
+          '<p class="empty-state">Choose your fields and generate a profile to see results here.</p>';
         profileCopyAllButton.disabled = true;
         downloadCsvButton.hidden = true;
-        showStatus('');
+        showStatus("");
       });
-
     </script>
   </body>
-  </html>
+</html>
