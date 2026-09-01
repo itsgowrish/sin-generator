@@ -414,6 +414,37 @@
         display: none;
       }
 
+      .custom-names {
+        margin-top: 18px;
+      }
+
+      .custom-names-toggle {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin: 0;
+        color: var(--teal-dark);
+        font: 700 13px/1.2 "Trebuchet MS", sans-serif;
+      }
+
+      .custom-names-toggle input {
+        width: 16px;
+        height: 16px;
+        margin: 0;
+        accent-color: var(--teal);
+      }
+
+      .custom-names-fields {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .custom-names-fields[hidden] {
+        display: none;
+      }
+
       .gender-settings {
         margin-top: 18px;
       }
@@ -995,6 +1026,45 @@
             fields</label
           >
         </div>
+        <div class="custom-names">
+          <label class="custom-names-toggle"
+            ><input id="use-custom-names" type="checkbox" /> Use custom
+            names</label
+          >
+          <div class="custom-names-fields" id="custom-names-fields" hidden>
+            <div>
+              <label for="custom-first-name">First name</label>
+              <input
+                id="custom-first-name"
+                type="text"
+                placeholder="e.g. Testfirstname"
+                autocomplete="off"
+              />
+            </div>
+            <div>
+              <label for="custom-middle-name">Middle name</label>
+              <input
+                id="custom-middle-name"
+                type="text"
+                placeholder="e.g. Testmiddlename"
+                autocomplete="off"
+              />
+            </div>
+            <div>
+              <label for="custom-last-name">Last name</label>
+              <input
+                id="custom-last-name"
+                type="text"
+                placeholder="e.g. Testlastname"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+          <p class="guide-note" id="custom-names-hint" hidden>
+            Generated names will append a sequential number, e.g.
+            Testfirstname1, Testfirstname2.
+          </p>
+        </div>
         <div class="gender-settings">
           <div class="gender-ratio">
             <label for="gender-ratio">Gender ratio</label>
@@ -1027,6 +1097,7 @@
               max="100"
               value="1"
               inputmode="numeric"
+              style="width: 30%; margin-top: 8px;"
             />
           </div>
         </div>
@@ -1148,6 +1219,12 @@
         document.querySelector("#generate-profiles");
       const clearProfilesButton = document.querySelector("#clear-profiles");
       const selectionSummary = document.querySelector("#selection-summary");
+      const useCustomNames = document.querySelector("#use-custom-names");
+      const customNamesFields = document.querySelector("#custom-names-fields");
+      const customNamesHint = document.querySelector("#custom-names-hint");
+      const customFirstName = document.querySelector("#custom-first-name");
+      const customMiddleName = document.querySelector("#custom-middle-name");
+      const customLastName = document.querySelector("#custom-last-name");
       const profileFieldOrder = [
         "sin",
         "fullName",
@@ -1587,6 +1664,14 @@
 
       toggleNameOptions();
       fullNameField.addEventListener("change", toggleNameOptions);
+      function toggleCustomNames() {
+        const enabled = useCustomNames.checked;
+        customNamesFields.hidden = !enabled;
+        customNamesHint.hidden = !enabled;
+      }
+
+      toggleCustomNames();
+      useCustomNames.addEventListener("change", toggleCustomNames);
       selectAllFields.addEventListener("change", () => {
         profileFields.forEach((field) => {
           field.checked = selectAllFields.checked;
@@ -1813,19 +1898,31 @@
         return assignments;
       }
 
-      function generateProfile(usedValues, selectedGender) {
+      function generateProfile(usedValues, selectedGender, profileIndex) {
         const province = PROVINCE_DATA[profileProvince.value];
         const cityName = profileCitySelect.value;
         const city = province.cities[cityName];
         const genderNames = PROFILE_GENDER_NAMES[selectedGender];
-        const firstName = uniqueValue(usedValues.firstName, () =>
-          pickRandom(genderNames.first),
+        const firstName = uniqueValue(
+          usedValues.firstName,
+          () =>
+            customFirstName.value.trim().length > 0
+              ? customFirstName.value.trim() + profileIndex
+              : pickRandom(genderNames.first),
         );
-        const middleName = uniqueValue(usedValues.middleName, () =>
-          pickRandom(genderNames.middle),
+        const middleName = uniqueValue(
+          usedValues.middleName,
+          () =>
+            customMiddleName.value.trim().length > 0
+              ? customMiddleName.value.trim() + profileIndex
+              : pickRandom(genderNames.middle),
         );
-        const lastName = uniqueValue(usedValues.lastName, () =>
-          pickRandom(PROFILE_LAST_NAMES),
+        const lastName = uniqueValue(
+          usedValues.lastName,
+          () =>
+            customLastName.value.trim().length > 0
+              ? customLastName.value.trim() + profileIndex
+              : pickRandom(PROFILE_LAST_NAMES),
         );
         const address = uniqueValue(usedValues.address, () => {
           const unit = addressUnit.checked
@@ -1896,9 +1993,18 @@
       function displayProfileFields(fields) {
         if (!fields.includes("fullName")) return fields;
         const fullNameIndex = fields.indexOf("fullName");
+        // Include custom name fields that have values
+        const customFirst = customFirstName.value.trim().length > 0;
+        const customMiddle = customMiddleName.value.trim().length > 0;
+        const customLast = customLastName.value.trim().length > 0;
+        const extraNameFields = [
+          customFirst && "firstName",
+          customMiddle && "middleName",
+          customLast && "lastName",
+        ].filter(Boolean);
         return [
           ...fields.slice(0, fullNameIndex + 1),
-          ...selectedNameFields(fields),
+          ...extraNameFields,
           ...fields
             .slice(fullNameIndex + 1)
             .filter(
@@ -1910,10 +2016,25 @@
 
       function formatProfileName(profile, fields) {
         const nameFields = selectedNameFields(fields);
-        if (!fields.includes("fullName") && !nameFields.length) return "";
+        // Check if custom names are provided (have values)
+        const customFirst = customFirstName.value.trim().length > 0;
+        const customMiddle = customMiddleName.value.trim().length > 0;
+        const customLast = customLastName.value.trim().length > 0;
+        const customNamesProvided = customFirst || customMiddle || customLast;
+
+        if (!fields.includes("fullName") && !nameFields.length && !customNamesProvided) {
+          return "";
+        }
+        // If no explicit name fields selected but custom names provided, use only the custom name fields
         const nameParts = nameFields.length
           ? nameFields
-          : ["firstName", "middleName", "lastName"];
+          : customNamesProvided
+            ? [
+                customFirst && "firstName",
+                customMiddle && "middleName",
+                customLast && "lastName",
+              ].filter(Boolean)
+            : ["firstName", "middleName", "lastName"];
         return nameParts.map((field) => profile[field]).join(" ");
       }
 
@@ -2118,8 +2239,8 @@
           dob: new Set(),
         };
         const genderAssignments = createGenderAssignments(count);
-        generatedProfiles = genderAssignments.map((selectedGender) =>
-          generateProfile(usedValues, selectedGender),
+        generatedProfiles = genderAssignments.map((selectedGender, index) =>
+          generateProfile(usedValues, selectedGender, index + 1),
         );
         csvDownloaded = false;
         renderProfiles(fields);
